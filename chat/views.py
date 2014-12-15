@@ -19,10 +19,9 @@ def create_user(request):
 	return HttpResponse('result:ok')
 
 
-def post_message(request, user_id, chat_id):
+def post_message(request, chat_id):
 	message = request.POST['message']
 	post_time = DateTime.today()
-	user = User.objects.get(id = user_id)
 	chat = Chat.objects.get(id = chat_id)
 	m = Message(user_id = user, 
 		chat_id = chat,
@@ -36,3 +35,8 @@ def all_messages_by_chat(request, chat_id):
 	messages = Message.objects.filter(chat_id = chat_id).all()
 	result = json.dumps(messages)
 	return messages
+
+
+def all_chats(request):
+	chats = Chat.objects.all()
+	return json.dumps(chats)
