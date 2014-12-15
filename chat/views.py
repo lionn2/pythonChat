@@ -33,10 +33,14 @@ def post_message(request, chat_id):
 
 def all_messages_by_chat(request, chat_id):
 	messages = Message.objects.filter(chat_id = chat_id).all()
-	result = json.dumps(messages)
+	r = messages.__dict__
+	result = json.dumps(r)
 	return messages
 
 
 def all_chats(request):
 	chats = Chat.objects.all()
-	return json.dumps(chats)
+	data = []
+	for chat in chats:
+		data.append(chat.to_json())
+	return json.dumps(data)
