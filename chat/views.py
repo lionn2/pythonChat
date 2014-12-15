@@ -1,16 +1,19 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 import json
+import datetime
 
 from models import Chat, Message, User
 
 def index(request):
 	return render(request, 'index.html')
 
+def name(request):
+	return render(request, 'name.html')
 
 def create_user(request):
 	name = request.POST['name']
-	date_registration = DateTime.today()
+	date_registration = datetime.datetime.now()
 	user = User(name = name, date_registration = date_registration)
 	user.save()
 	return HttpResponse('result:ok')
