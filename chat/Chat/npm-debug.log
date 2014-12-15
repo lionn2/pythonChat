@@ -1,0 +1,25 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'uninstall', 'e' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.33
+4 verbose node_modules/e unbuild
+5 info preuninstall e@0.0.4
+6 info uninstall e@0.0.4
+7 verbose true,/home/alex/Documents/js/chat/Chat/node_modules,/home/alex/Documents/js/chat/Chat/node_modules unbuild e@0.0.4
+8 info postuninstall e@0.0.4
+9 error Error: EACCES, unlink '/home/alex/Documents/js/chat/Chat/node_modules/e'
+9 error  { [Error: EACCES, unlink '/home/alex/Documents/js/chat/Chat/node_modules/e']
+9 error   errno: 3,
+9 error   code: 'EACCES',
+9 error   path: '/home/alex/Documents/js/chat/Chat/node_modules/e' }
+10 error Please try running this command again as root/Administrator.
+11 error System Linux 3.13.0-43-generic
+12 error command "/usr/local/bin/node" "/usr/local/bin/npm" "uninstall" "e"
+13 error cwd /home/alex/Documents/js/chat/Chat
+14 error node -v v0.10.33
+15 error npm -v 1.4.28
+16 error path /home/alex/Documents/js/chat/Chat/node_modules/e
+17 error code EACCES
+18 error errno 3
+19 error stack Error: EACCES, unlink '/home/alex/Documents/js/chat/Chat/node_modules/e'
+20 verbose exit [ 3, true ]
