@@ -8,6 +8,15 @@ def index(request):
 	return render(request, 'index.html')
 
 
+def create_user(request):
+	name = request.POST['name']
+	date_registration = DateTime.today()
+	user = User(name = name, date_registration = date_registration)
+	id = user.save()
+	print id
+	return HttpResponse('ok')
+
+
 def post_message(request, user_id, chat_id):
 	message = request.POST['message']
 	post_time = DateTime.today()
