@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class User(models.Model):
 	name = models.CharField(max_length=100)
 	date_registration = models.DateTimeField()
@@ -11,6 +10,11 @@ class Chat(models.Model):
 	start_time = models.DateTimeField()
 	users = models.ManyToManyField(User)
 
+
+class Chat(models.Model):
+	chat_name = models.CharField(max_length = 100)
+	start_time = models.DateTimeField()
+	users = models.ManyToManyField(User)
 
 
 class Message(models.Model):
