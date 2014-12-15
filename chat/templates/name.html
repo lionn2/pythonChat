@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <title>Name</title>
+	</head>
+	<body>
+		<form action="{% url 'chat.views.create_user' %}" method="post">{% csrf_token %}
+		<h4>
+			<p><label for="name" class="label label-default">Name:</label>
+			    <input type="text" name="name" id="name"/></p>
+			<input type="submit" value="add" class="btn btn-info" />
+		</h4>
+		</form>	
+	</body>	
+</html>
