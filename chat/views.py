@@ -4,6 +4,9 @@ import json
 
 from models import Chat, Message, User
 
+def index(request):
+	return render(request, 'index.html')
+
 
 def post_message(request, user_id, chat_id):
 	message = request.POST['message']
