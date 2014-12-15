@@ -12,9 +12,8 @@ def create_user(request):
 	name = request.POST['name']
 	date_registration = DateTime.today()
 	user = User(name = name, date_registration = date_registration)
-	id = user.save()
-	print id
-	return HttpResponse('ok')
+	user.save()
+	return HttpResponse('result:ok')
 
 
 def post_message(request, user_id, chat_id):
