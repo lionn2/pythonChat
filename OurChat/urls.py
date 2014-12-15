@@ -10,6 +10,6 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', 'chat.views.index', name='index')
-
+    url(r'^$', 'chat.views.index', name='index'),
+	url(r'^create_user/$', 'chat.views.create_user', name='create_user'),
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
