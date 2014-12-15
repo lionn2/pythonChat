@@ -12,6 +12,12 @@ class Chat(models.Model):
 	start_time = models.DateTimeField()
 	users = models.ManyToManyField(User)
 
+	def to_json(self):
+		return {
+			"chat_name": self.chat_name,
+			"start_time": str(self.start_time),
+		}
+
 
 class Message(models.Model):
 	chat_id = models.ForeignKey(Chat)
