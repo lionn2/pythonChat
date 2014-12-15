@@ -6,7 +6,10 @@ import datetime
 from models import Chat, Message, User
 
 def index(request):
-	return render(request, 'index.html')
+	result = {
+		"chats": Chat.objects.all()
+	}
+	return render(request, 'index.html', result)
 
 def name(request):
 	return render(request, 'name.html')
@@ -44,3 +47,12 @@ def all_chats(request):
 	for chat in chats:
 		data.append(chat.to_json())
 	return json.dumps(data)
+
+
+def chat_html(request):
+	return render(request, 'chat.html')
+
+def chat_id(request, id):
+	res = Chat.objects.get(id=id)
+	ch = res.to_json()
+	return json.dumps(ch)
