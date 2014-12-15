@@ -2,13 +2,16 @@ alert('hi')
 var user = {}
 user.name = prompt('Enter your name');
 // Пример с POST
-function createUser2() {
+function createUser() {
 	var xhr = new XMLHttpRequest();
 
-	var params = 'name=' + encodeURIComponent(user.name);
-
-	xhr.open("POST", '/create_user/', true)
-	//xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+	var token = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+	//alert(token);
+	var params = 'csrfmiddlewaretoken=' + token + '&name=' + user.name;
+	
+	xhr.open("POST", '/create_user/', true);
+	//xnr.setRequestHeader('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8');
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
 	xhr.onreadystatechange = function() {
 	  	if (this.readyState != 4) {
@@ -20,7 +23,7 @@ function createUser2() {
 
 	xhr.send(params);
 }
-function createUser () {
+function createUser3 () {
 	var params = 'name=' + encodeURIComponent(user.name);
 	$.ajax({
       type: "post",
