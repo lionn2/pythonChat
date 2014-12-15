@@ -20,3 +20,7 @@ function createUser() {
 
 	xhr.send(params);
 }
+
+function getChats (id) {
+	
+}
