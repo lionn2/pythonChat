@@ -34,7 +34,7 @@ class Message(models.Model):
 		return {
 			"id": self.id,
 			"chat_id": self.chat_id.id,
-			"user_id": self.user_id.id,
+			"user": self.user_id.name,
 			"message": self.message,
 			"post_time": str(self.post_time),
 		}
