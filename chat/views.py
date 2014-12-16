@@ -27,7 +27,7 @@ def create_user(request, chat_id):
 	return HttpResponse(user_to_json)
 
 
-def drop_user(self, id):
+def drop_user(request, id):
 	user = User.objects.get(id=id)
 	user.delete()
 	return HttpResponse('result:ok')
@@ -84,7 +84,7 @@ def chat(request, id):
 
 def messages_from_date(request, chat_id):
 	date = request.POST['date']
-	d = datetime.datetime.strptime(date, "%Y-%m-%d %H:%M:%S").date()
-	messages = Message.objects.filter(chat_id = chat_id).filter(post_time__gte = d)	
+	d = datetime.datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
+	messages = Message.objects.filter(chat_id = chat_id).filter(post_time__gte = d)
 	data = serializers.serialize("json", messages)
 	return HttpResponse(data)
