@@ -32,6 +32,10 @@ def drop_user(self, id):
 	return HttpResponse('result:ok')
 
 
+#def create_chat(self):
+
+
+
 def post_message(request, chat_id):
 	message = request.POST['message']
 	post_time = DateTime.today()
@@ -44,14 +48,10 @@ def post_message(request, chat_id):
 	m.save()
 	return HttpResponse('result:ok')
 
-def all_messages_by_chat(request, chat_id):
-	messages = Message.objects.filter(chat_id = chat_id).all()
-	r = messages.__dict__
-	result = json.dumps(r)
-	return messages
-
 def chat(request, id):
 	chat = {
 		"chat": Chat.objects.get(id=id)
+		"messages": Message.objects.filter(chat_id = id).all()
 	}
 	return render(request, 'chat.html', chat)
+
