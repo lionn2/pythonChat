@@ -76,7 +76,21 @@ function formatDate (date) {
 	console.log(res);
 	return res;
 }
-
+function formateDateChat(date) {
+	var addZero = function (number) {
+		var number = number.toString();
+		if (number.length == 1) {
+			number = '0' + number;
+		}
+		return number;
+	};
+	var hour = addZero( date.getHours() );
+	var minute = addZero( date.getMinutes() );
+	var second = addZero( date.getSeconds() );
+	var res = hour + ':' + minute + ':' + second;
+	console.log(res);
+	return res;
+}
 
 function openChat (id) {
 	
@@ -88,6 +102,7 @@ function getMessagesFromDate (date) {
            data: getToken() + "&date=" + formatDate(date),
            success: function(messages)
            {
+           		messages = jQuery.parseJSON(messages);
                console.log(messages); // show response from the php script.
                textArea.value = "";
                addMessagesToTable(messages);
@@ -98,13 +113,16 @@ function getMessagesFromDate (date) {
 function addMessagesToTable (messages) {
 	var table = document.getElementById('chatTable');
 	var n = table.rows.length;
-	for (var m = 0; m < messages.length; m++) {
+	for (var i = 0; i < messages.length; i++) {
+		m = messages[i].fields;
+		m.post_time = new Date(m.post_time);
+		console.log(m);
 		var row = table.insertRow(table.rows.length);
 		var cell1 = row.insertCell(0);
-		cell1.innerHTML = m.user;
+		cell1.innerHTML = m.user_id;
 		var cell2 = row.insertCell(1);
 		cell2.innerHTML = m.message;
 		var cell3 = row.insertCell(2);
-		cell3.innerHTML = m.post_time;
+		cell3.innerHTML = formateDateChat(m.post_time);
 	};
 }
