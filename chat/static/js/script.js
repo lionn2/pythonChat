@@ -96,9 +96,9 @@ function getMessagesFromDate (date) {
 }
 
 function addMessagesToTable (messages) {
-	var table = getElementById('chatTable');
+	var table = document.getElementById('chatTable');
 	var n = table.rows.length;
-	for (var m = 0; i < messages.length; i++) {
+	for (var m = 0; m < messages.length; m++) {
 		var row = table.insertRow(table.rows.length);
 		var cell1 = row.insertCell(0);
 		cell1.innerHTML = m.user;
