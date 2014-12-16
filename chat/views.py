@@ -50,7 +50,17 @@ def post_message(request, chat_id):
 def edit_message(request, user_id, id):
 	message = Message.objects.get(id = id)
 	if message.user_id.id == user_id:
-		return json.dumps(message)
+		return HttpResponse(json.dumps(message.to_json()))
+	else:
+		return HttpResponse('result:no')
+
+
+def post_edit_message(request, user_id, id):
+	message = Message.objects.get(id=id)
+	if user_id == message.user_id.id:
+		message.message = request.POST['message']
+		message.post_time = datetime.datetime.now()
+		return HttpResponse(json.dumps(message.to_json()))
 	else:
 		return HttpResponse('result:no')
 
