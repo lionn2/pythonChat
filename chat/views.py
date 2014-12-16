@@ -81,7 +81,7 @@ def chat(request, id):
 	}
 	return render(request, 'chat.html', chat)
 
-def messages_from_date(request):
+def messages_from_date(request, chat_id):
 	date = request.POST['date']
-	messages = Message.objects.filter(post_time > date)
+	messages = Message.objects.filter(post_time > date).get(chat_id.id = chat_id)
 	return HttpResponse(messages)
