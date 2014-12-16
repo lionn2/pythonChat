@@ -18,4 +18,6 @@ urlpatterns = patterns('',
 	url(r'^all_chats/$', 'chat.views.all_chats', name='all_chats'),
 	url(r'^chat/(?P<id>\d+)/$', 'chat.views.chat', name='chat'),
 	url(r'^drop_user/(?P<id>\d+)/$', 'chat.views.drop_user', name='drop_user'),
+	url(r'^chat/(?P<chat_id>\d+)/post_message/$', 'chat.views.post_message', name='post_message'),
+	
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
