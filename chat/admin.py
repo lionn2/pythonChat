@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from models import Chat, User
+from models import *
 
 class ChatAdmin(admin.ModelAdmin):
     fields = ['chat_name', 'start_time']
@@ -13,3 +13,9 @@ class UserAdmin(admin.ModelAdmin):
 
 
 admin.site.register(User, UserAdmin)
+
+
+class MessageAdmin(admin.ModelAdmin):
+    fields = ['user_id', 'chat_id', 'message', 'post_time']
+
+admin.site.register(Message, MessageAdmin)
