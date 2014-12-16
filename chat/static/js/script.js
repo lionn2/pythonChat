@@ -52,7 +52,11 @@ function post_message () {
            }
          });
 }
+function getToken () {
+	var token = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+	return 'csrfmiddlewaretoken=' + token + '&name=' + user.name;
 
+}
 function openChat (id) {
 	
 }
@@ -60,7 +64,7 @@ function getMessagesFromDate (date) {
 	$.ajax({
            type: "POST",
            url: window.location.href + 'messages_from_date/',
-           data: "date=" + date;
+           data: getToken + "&date=" + date;
            success: function(messages)
            {
                console.log(messages); // show response from the php script.
