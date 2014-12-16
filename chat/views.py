@@ -26,7 +26,6 @@ def create_user(request, chat_id):
 	return HttpResponse(user_to_json)
 
 
-def drop_user(self):
 
 
 

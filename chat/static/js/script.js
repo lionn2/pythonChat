@@ -16,9 +16,10 @@ function createUser() {
 	  		return;
 		}
 		user = jQuery.parseJSON(xhr.responseText);
+		document.getElementById('username').innerHTML = user.name;
 	}
-	console.log(user);
 	xhr.send(params);
+
 }
 function authorisation () {
 	user.name = prompt('Enter your name');
