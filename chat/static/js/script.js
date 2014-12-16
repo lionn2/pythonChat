@@ -31,9 +31,7 @@ function authorisation () {
 	date.setHours(0,0,0,0);
 	//getMessagesFromDate(date);
 	setInterval(function() {
-		var date2 = new Date();
-		getMessagesFromDate(date)
-		date = date2;
+		getMessagesFromDate(date);
 		console.log(date);
 	}, 1000);	
 }
@@ -130,4 +128,5 @@ function addMessageToTable (m) {
 	cell2.innerHTML = m.message;
 	var cell3 = row.insertCell(2);
 	cell3.innerHTML = formateDateChat(m.post_time);
+	date = m.post_time;
 }
