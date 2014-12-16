@@ -23,7 +23,7 @@ def create_user(request, chat_id):
 	chat = Chat.objects.get(id=chat_id)
 	chat.users.add(user)
 	chat.save()
-	user_to_json = serializers.serialize("json", [user,])
+	user_to_json = json.dumps(user.to_json())
 	return HttpResponse(user_to_json)
 
 
