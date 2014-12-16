@@ -38,7 +38,7 @@ function post_message () {
            data: $("#post_message").serialize(), // serializes the form's elements.
            success: function(data)
            {
-               alert(data); // show response from the php script.
+               console.log(data); // show response from the php script.
            }
          });
 }
