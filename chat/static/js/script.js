@@ -60,7 +60,7 @@ function getMessagesFromDate (date) {
 	$.ajax({
            type: "POST",
            url: window.location.href + 'messages_from_date/',
-           data: "date=" + date;
+           data: "date=" + date,
            success: function(messages)
            {
                console.log(messages); // show response from the php script.
