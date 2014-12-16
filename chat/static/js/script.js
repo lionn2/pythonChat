@@ -47,7 +47,7 @@ function post_message () {
            data: $("#post_message").serialize(), // serializes the form's elements.
            success: function(message)
            {
-           		addMessagesToTable( new Array(message) );
+           		addMessageToTable(message);
                 textArea.value = "";
            }
          });
@@ -111,18 +111,23 @@ function getMessagesFromDate (date) {
 }
 
 function addMessagesToTable (messages) {
-	var table = document.getElementById('chatTable');
-	var n = table.rows.length;
+	
 	for (var i = 0; i < messages.length; i++) {
 		m = messages[i].fields;
-		m.post_time = new Date(m.post_time);
-		console.log(m);
-		var row = table.insertRow(table.rows.length);
-		var cell1 = row.insertCell(0);
-		cell1.innerHTML = m.user_id;
-		var cell2 = row.insertCell(1);
-		cell2.innerHTML = m.message;
-		var cell3 = row.insertCell(2);
-		cell3.innerHTML = formateDateChat(m.post_time);
+		addMessageToTable(m);
 	};
+}
+
+function addMessageToTable (m) {
+	var table = document.getElementById('chatTable');
+	var n = table.rows.length;
+	m.post_time = new Date(m.post_time);
+	console.log(m);
+	var row = table.insertRow(table.rows.length);
+	var cell1 = row.insertCell(0);
+	cell1.innerHTML = m.user_id;
+	var cell2 = row.insertCell(1);
+	cell2.innerHTML = m.message;
+	var cell3 = row.insertCell(2);
+	cell3.innerHTML = formateDateChat(m.post_time);
 }
