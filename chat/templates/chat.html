@@ -38,7 +38,7 @@
 			      	<form id="post_message">
 			      	{% csrf_token %}
 			        <textarea class="form-control" rows="3" id="textArea" name="message"></textarea>
-			        <input type="hidden" name="user" id="user_id" />
+			        <input type="hidden" name="user_id" id="user_id" />
 			        </form>
 			        <button class="btn btn-primary" onclick="post_message()">Send</button>
 			        <button href="../../" class="btn btn-primary">Exit</button>
