@@ -26,8 +26,10 @@ def create_user(request, chat_id):
 	return HttpResponse(user_to_json)
 
 
-def drop_user(self):
-
+def drop_user(self, id):
+	user = User.objects.get(id=id)
+	user.delete()
+	return HttpResponse('result:ok')
 
 
 def post_message(request, chat_id):
@@ -49,5 +51,7 @@ def all_messages_by_chat(request, chat_id):
 	return messages
 
 def chat(request, id):
-	chat = Chat.objects.get(id=id)
-	return render(request, 'chat.html')
+	chat = {
+		"chat": Chat.objects.get(id=id)
+	}
+	return render(request, 'chat.html', chat)
