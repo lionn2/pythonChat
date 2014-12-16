@@ -18,6 +18,9 @@ function createUser() {
 		user = jQuery.parseJSON(xhr.responseText);
 		console.log(user);
 		document.getElementById('username').innerHTML = 'User: ' + user.name;
+		var user_id = document.getElementById('user_id');
+		user_id.value = user.id;
+		console.log(user_id.value);
 	}
 	xhr.send(params);
 
@@ -25,6 +28,19 @@ function createUser() {
 function authorisation () {
 	user.name = prompt('Enter your name');
 	createUser(); 
+
+}
+
+function post_message () {
+	$.ajax({
+           type: "POST",
+           url: window.location.href + 'post_message/',
+           data: $("#post_message").serialize(), // serializes the form's elements.
+           success: function(data)
+           {
+               alert(data); // show response from the php script.
+           }
+         });
 }
 
 function openChat (id) {
