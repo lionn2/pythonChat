@@ -36,6 +36,7 @@ function authorisation () {
 }
 
 function post_message () {
+	console.log(user);
 	var textArea = document.getElementById('textArea');
 	if(!textArea.value)  {
 		console.log('textArea is empty');
@@ -45,9 +46,9 @@ function post_message () {
            type: "POST",
            url: window.location.href + 'post_message/',
            data: $("#post_message").serialize(), // serializes the form's elements.
-           success: function(message)
+           success: function(messages)
            {
-           		addMessageToTable(message);
+           		addMessagesToTable(messages);
                 textArea.value = "";
            }
          });
@@ -103,7 +104,6 @@ function getMessagesFromDate (date) {
            success: function(messages)
            {
            		messages = jQuery.parseJSON(messages);
-               console.log(messages); // show response from the php script.
                textArea.value = "";
                addMessagesToTable(messages);
            }
@@ -111,9 +111,10 @@ function getMessagesFromDate (date) {
 }
 
 function addMessagesToTable (messages) {
-	
+	console.log(messages);
 	for (var i = 0; i < messages.length; i++) {
-		m = messages[i].fields;
+		m = jQuery.parseJSON(messages[i].fields);
+		console.log(messages[i]);
 		addMessageToTable(m);
 	};
 }
