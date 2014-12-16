@@ -13,7 +13,7 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'chat.views.index', name='index'),
-	url(r'^create_user/$', 'chat.views.create_user', name='create_user'),
+	url(r'^create_user/(?P<chat_id>\d+)/$', 'chat.views.create_user', name='create_user'),
 	url(r'^name/$', 'chat.views.name', name='name'),
 	url(r'^all_chats/$', 'chat.views.all_chats', name='all_chats'),
 	url(r'^chat/(?P<id>\d+)/$', 'chat.views.chat', name='chat'),

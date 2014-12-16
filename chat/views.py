@@ -14,12 +14,16 @@ def index(request):
 def name(request):
 	return render(request, 'name.html')
 
-def create_user(request):
+def create_user(request, chat_id):
 	name = request.POST['name']
 	date_registration = datetime.datetime.now()
 	user = User(name = name, date_registration = date_registration)
 	user.save()
-	return HttpResponse('result:ok')
+	chat = Chat.objects.get(id=chat_id)
+	chat.users.add(user)
+	chat.save()
+	user_to_json = json.dumps(user)
+	return HttpResponse(user_to_json)
 
 
 def post_message(request, chat_id):
