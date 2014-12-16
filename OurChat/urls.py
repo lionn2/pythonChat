@@ -16,5 +16,6 @@ urlpatterns = patterns('',
 	url(r'^create_user/$', 'chat.views.create_user', name='create_user'),
 	url(r'^name/$', 'chat.views.name', name='name'),
 	url(r'^all_chats/$', 'chat.views.all_chats', name='all_chats'),
-	
+	url(r'^chat_html/$', 'chat.views.chat_html', name='chat_html'),
+	url(r'^chat/(?P<id>\d+)/$', 'chat.views.chat_id', name='chat_id'),
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

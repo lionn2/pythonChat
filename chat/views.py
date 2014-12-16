@@ -40,19 +40,6 @@ def all_messages_by_chat(request, chat_id):
 	result = json.dumps(r)
 	return messages
 
-
-def all_chats(request):
-	chats = Chat.objects.all()
-	data = []
-	for chat in chats:
-		data.append(chat.to_json())
-	return json.dumps(data)
-
-
-def chat_html(request):
+def chat(request, id):
+	chat = Chat.objects.get(id=id)
 	return render(request, 'chat.html')
-
-def chat_id(request, id):
-	res = Chat.objects.get(id=id)
-	ch = res.to_json()
-	return json.dumps(ch)
