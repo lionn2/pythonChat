@@ -1,6 +1,6 @@
 var user = {}
 var chats = []
-user.name = prompt('Enter your name');
+var idChat;
 // Пример с POST
 function createUser() {
 	var xhr = new XMLHttpRequest();
@@ -8,18 +8,23 @@ function createUser() {
 	var token = document.getElementsByName('csrfmiddlewaretoken')[0].value;
 	var params = 'csrfmiddlewaretoken=' + token + '&name=' + user.name;
 
-	xhr.open("POST", '/create_user/', true);
+	xhr.open("POST", window.location.href + 'create_user/', true);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
 	xhr.onreadystatechange = function() {
 	  	if (this.readyState != 4) {
 	  		return;
 		}
+		user = jQuery.parseJSON(xhr.responseText);
 	}
-
+	console.log(user);
 	xhr.send(params);
 }
+function authorisation () {
+	user.name = prompt('Enter your name');
+	createUser(); 
+}
 
-function getChats (id) {
+function openChat (id) {
 	
 }
