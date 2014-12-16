@@ -24,10 +24,11 @@ function createUser() {
 		console.log(user_id.value);
 	}
 	xhr.send(params);
-
+	console.log('createUser')
 }
 var date;
 function authorisation () {
+	console.log('authorisation')
 	user.name = prompt('Enter your name');
 	createUser(); 
 	date = new Date();
@@ -36,7 +37,9 @@ function authorisation () {
 }
 
 function post_message () {
-	console.log(user);
+
+	console.log('post_message')
+		console.log(user);
 	var textArea = document.getElementById('textArea');
 	if(!textArea.value)  {
 		console.log('textArea is empty');
@@ -52,6 +55,7 @@ function post_message () {
                 textArea.value = "";
            }
          });
+
 }
 function getToken () {
 	var token = document.getElementsByName('csrfmiddlewaretoken')[0].value;
@@ -60,6 +64,7 @@ function getToken () {
 }
 
 function formatDate (date) {
+	console.log('formatDate')
 	var addZero = function (number) {
 		var number = number.toString();
 		if (number.length == 1) {
@@ -78,6 +83,7 @@ function formatDate (date) {
 	return res;
 }
 function formateDateChat(date) {
+	console.log('formateDateChat')
 	var addZero = function (number) {
 		var number = number.toString();
 		if (number.length == 1) {
@@ -97,6 +103,7 @@ function openChat (id) {
 	
 }
 function getMessagesFromDate (date) {
+	console.log('getMessagesFromDate');
 	$.ajax({
            type: "POST",
            url: window.location.href + 'messages_from_date/',
@@ -111,15 +118,17 @@ function getMessagesFromDate (date) {
 }
 
 function addMessagesToTable (messages) {
+	console.log('addMessagesToTable')
 	console.log(messages);
 	for (var i = 0; i < messages.length; i++) {
-		m = jQuery.parseJSON(messages[i].fields);
+		m = messages[i].fields;
 		console.log(messages[i]);
 		addMessageToTable(m);
 	};
 }
 
 function addMessageToTable (m) {
+	console.log('addMessageToTable')
 	var table = document.getElementById('chatTable');
 	var n = table.rows.length;
 	m.post_time = new Date(m.post_time);
