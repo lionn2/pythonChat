@@ -32,7 +32,7 @@ function authorisation () {
 	//getMessagesFromDate(date);
 	setInterval(function() {
 		getMessagesFromDate(date);
-		console.log(date);
+		console.log(date.toISOString());
 	}, 1000);	
 }
 
@@ -62,7 +62,7 @@ function getToken () {
 }
 
 function formatDate (date) {
-	var addZero = function (number) {
+	/*var addZero = function (number) {
 		var number = number.toString();
 		if (number.length == 1) {
 			number = '0' + number;
@@ -76,10 +76,12 @@ function formatDate (date) {
 	var minute = addZero( date.getMinutes() );
 	var second = addZero( date.getSeconds() );
 	var res =  year + '-' + month + '-' + date1 + ' ' + hour + ':' + minute + ':' + second;
-	return res;
+	return res;*/
+
+	return date.toISOString();
 }
 function formateDateChat(date) {
-	var addZero = function (number) {
+	/*var addZero = function (number) {
 		var number = number.toString();
 		if (number.length == 1) {
 			number = '0' + number;
@@ -90,7 +92,8 @@ function formateDateChat(date) {
 	var minute = addZero( date.getMinutes() );
 	var second = addZero( date.getSeconds() );
 	var res = hour + ':' + minute + ':' + second;
-	return res;
+	return res;*/
+	return date.toISOString();
 }
 
 function openChat (id) {
@@ -127,5 +130,5 @@ function addMessageToTable (m) {
 	cell2.innerHTML = m.message;
 	var cell3 = row.insertCell(2);
 	cell3.innerHTML = formateDateChat(m.post_time);
-	date = m.post_time;
+	date = m.post_time;X
 }
