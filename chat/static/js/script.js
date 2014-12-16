@@ -51,6 +51,7 @@ function post_message () {
            data: $("#post_message").serialize(), // serializes the form's elements.
            success: function(messages)
            {
+           		messages = jQuery.parseJSON(messages);
            		addMessagesToTable(messages);
                 textArea.value = "";
            }
