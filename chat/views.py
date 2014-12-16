@@ -83,5 +83,7 @@ def chat(request, id):
 
 def messages_from_date(request, chat_id):
 	date = request.POST['date']
-	messages = Message.objects.filter(post_time > date).get(chat_id.id = chat_id)
+	d = datetime(date)
+	print d
+	messages = Message.objects.filter(chat_id = chat).filter(post_time__lte = d)
 	return HttpResponse(messages)

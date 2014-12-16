@@ -54,9 +54,30 @@ function post_message () {
 }
 function getToken () {
 	var token = document.getElementsByName('csrfmiddlewaretoken')[0].value;
-	return 'csrfmiddlewaretoken=' + token + '&name=' + user.name;
+	return 'csrfmiddlewaretoken=' + token;
 
 }
+
+function formatDate (date) {
+	var addZero = function (number) {
+		var number = number.toString();
+		if (number.length == 1) {
+			number = '0' + number;
+		}
+		return number;
+	};
+	var year = addZero( date.getFullYear());
+	var month = addZero( date.getMonth() + 1 );
+	var date1 = addZero( date.getDate() );
+	var hour = addZero( date.getHours() );
+	var minute = addZero( date.getMinutes() );
+	var second = addZero( date.getSeconds() );
+	var res =  year + '-' + month + '-' + date1 + ' ' + hour + ':' + minute + ':' + second + '.0';
+	console.log(res);
+	return res;
+}
+
+
 function openChat (id) {
 	
 }
@@ -64,7 +85,7 @@ function getMessagesFromDate (date) {
 	$.ajax({
            type: "POST",
            url: window.location.href + 'messages_from_date/',
-           data: getToken + "&date=" + date;
+           data: getToken() + "&date=" + formatDate(date),
            success: function(messages)
            {
                console.log(messages); // show response from the php script.
