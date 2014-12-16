@@ -6,6 +6,7 @@ class User(models.Model):
 
 	def to_json(self):
 		return {
+			"id": self.id,
 			"name": self.name,
 			"date_registration": str(self.date_registration),
 		}
@@ -17,6 +18,7 @@ class Chat(models.Model):
 
 	def to_json(self):
 		return {
+			"id": self.id,
 			"chat_name": self.chat_name,
 			"start_time": str(self.start_time),
 		}
