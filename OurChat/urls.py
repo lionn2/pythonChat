@@ -19,5 +19,6 @@ urlpatterns = patterns('',
 	url(r'^chat/(?P<id>\d+)/$', 'chat.views.chat', name='chat'),
 	url(r'^drop_user/(?P<id>\d+)/$', 'chat.views.drop_user', name='drop_user'),
 	url(r'^chat/(?P<chat_id>\d+)/post_message/$', 'chat.views.post_message', name='post_message'),
-	
+	url(r'^chat/(?P<chat_id>\d+)/edit_message/(?P<user_id>\d+)/(?P<id>\d+)/$', 'chat.views.edit_message', name='edit_message'),
+	url(r'^chat/(?P<chat_id>\d+)/delete_message/(?P<user_id>\d+)/(?P<id>\d+)/$', 'chat.views.delete_message', name='delete_message'),
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

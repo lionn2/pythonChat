@@ -45,6 +45,23 @@ def post_message(request, chat_id):
 	return HttpResponse('result:ok')
 
 
+def edit_message(request, user_id, id):
+	message = Message.objects.get(id = id)
+	if message.user_id.id == user_id:
+		return json.dumps(message)
+	else:
+		return HttpResponse('result:no')
+
+
+def delete_message(request, user_id, id):
+	message = Message.objects.get(id = id)
+	if message.user_id.id == user_id:
+		message.delete()
+		return HttpResponse('result:ok')
+	else:
+		return HttpResponse('result:no')
+
+
 def chat(request, id):
 	chat = {
 		"chat": Chat.objects.get(id=id),
