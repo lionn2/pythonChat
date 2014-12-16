@@ -45,7 +45,7 @@ def post_message(request, chat_id):
 		post_time = post_time
 		)
 	m.save()
-	return HttpResponse(serializers.serialize("json", [m,]))
+	return HttpResponse(serializers.serialize("json", [user,]))
 
 
 def edit_message(request, user_id, id):
