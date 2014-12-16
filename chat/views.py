@@ -44,7 +44,7 @@ def post_message(request, chat_id):
 		post_time = post_time
 		)
 	m.save()
-	return json.dumps(m)
+	return json.dumps(m.to_json())
 
 
 def edit_message(request, user_id, id):

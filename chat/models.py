@@ -29,3 +29,11 @@ class Message(models.Model):
 	user_id = models.ForeignKey(User)
 	message = models.TextField()
 	post_time = models.DateTimeField()
+
+	def to_json(self):
+		return {
+			"id": self.id,
+			"chat_id": self.chat_id,
+			"message": self.message,
+			"post_time": self.post_time,
+		}
