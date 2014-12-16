@@ -72,7 +72,7 @@ function formatDate (date) {
 	var hour = addZero( date.getHours() );
 	var minute = addZero( date.getMinutes() );
 	var second = addZero( date.getSeconds() );
-	var res =  year + '-' + month + '-' + date1 + ' ' + hour + ':' + minute + ':' + second + '.0';
+	var res =  year + '-' + month + '-' + date1 + ' ' + hour + ':' + minute + ':' + second;
 	console.log(res);
 	return res;
 }
