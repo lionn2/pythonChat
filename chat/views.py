@@ -18,11 +18,11 @@ def create_user(request, chat_id):
 	name = request.POST['name']
 	date_registration = datetime.datetime.now()
 	user = User(name = name, date_registration = date_registration)
+	user_to_json = json.dumps(user.to_json())
 	user.save()
 	chat = Chat.objects.get(id=chat_id)
 	chat.users.add(user)
 	chat.save()
-	user_to_json = json.dumps(user)
 	return HttpResponse(user_to_json)
 
 

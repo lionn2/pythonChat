@@ -4,6 +4,12 @@ class User(models.Model):
 	name = models.CharField(max_length=100)
 	date_registration = models.DateTimeField()
 
+	def to_json(self):
+		return {
+			"name": self.name,
+			"date_registration": str(self.date_registration),
+		}
+
 class Chat(models.Model):
 	chat_name = models.CharField(max_length = 100)
 	start_time = models.DateTimeField()
