@@ -104,8 +104,7 @@ function getMessagesFromDate (date) {
            success: function(messages)
            {
            		messages = jQuery.parseJSON(messages);
-               textArea.value = "";
-               addMessagesToTable(messages);
+                addMessagesToTable(messages);
            }
          });
 }

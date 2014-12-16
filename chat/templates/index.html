@@ -1,5 +1,4 @@
 {% load staticfiles %}
-
 <!Doctype HTML>
 <html>
 	<head>
@@ -16,6 +15,7 @@
 		</style>
 	</head>
 	<body>
+		{% csrf_token %}
 		<div class="container">
 			<table class="table table-striped table-hover">
 				<tr>
