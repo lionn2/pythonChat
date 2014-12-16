@@ -33,7 +33,8 @@ class Message(models.Model):
 	def to_json(self):
 		return {
 			"id": self.id,
-			"chat_id": self.chat_id,
+			"chat_id": self.chat_id.id,
+			"user_id": self.user_id.id,
 			"message": self.message,
-			"post_time": self.post_time,
+			"post_time": str(self.post_time),
 		}
