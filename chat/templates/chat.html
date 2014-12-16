@@ -36,14 +36,8 @@
 			        </div>
 			      	<div class="mygrid-wrapper-div">
 			      	
-			      	<table class="table">
-			      		{% for m in messages %}
-							<tr>
-								<td>{{ m.user_id.name }}</td>
-								<td>{{ m.message }}</td>
-								<td>{{ m.post_time }}</td>
-							</tr>
-						{% endfor %}
+			      	<table id="chatTable" class="table">
+			      		
 					</table>
 			      	</div>
 			      	<form id="post_message">
