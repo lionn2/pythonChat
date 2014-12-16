@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 import json
 import datetime
+from django.core import serializers
 
 from models import Chat, Message, User
 
@@ -84,6 +85,6 @@ def chat(request, id):
 def messages_from_date(request, chat_id):
 	date = request.POST['date']
 	d = datetime.datetime.strptime(date, "%Y-%m-%d %H:%M:%S").date()
-	print d
-	messages = Message.objects.filter(chat_id = chat_id).filter(post_time__gte = d)
-	return HttpResponse(messages)
+	messages = Message.objects.filter(chat_id = chat_id).filter(post_time__gte = d)	
+	data = serializers.serialize("json", messages)
+	return HttpResponse(data)
