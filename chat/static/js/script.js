@@ -16,7 +16,7 @@ function createUser() {
 	  		return;
 		}
 		user = jQuery.parseJSON(xhr.responseText);
-		document.getElementById('username').innerHTML = user.name;
+		document.getElementById('username').innerHTML = 'User: ' + user.name;
 	}
 	xhr.send(params);
 
@@ -24,6 +24,7 @@ function createUser() {
 function authorisation () {
 	user.name = prompt('Enter your name');
 	createUser(); 
+	console.log(document.getElementById('chatname').innerHTML);
 }
 
 function openChat (id) {
