@@ -34,8 +34,10 @@ def drop_user(self, id):
 
 def post_message(request, chat_id):
 	message = request.POST['message']
+	user_id = request.POST['user_id']
 	post_time = DateTime.today()
 	chat = Chat.objects.get(id = chat_id)
+	user = User.objects.get(id = user_id)
 	m = Message(user_id = user, 
 		chat_id = chat,
 		message = message,
