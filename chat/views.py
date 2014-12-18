@@ -92,10 +92,16 @@ def messages_from_date(request, chat_id):
 	d2 = dateutil.parser.parse(date)
 	d3 = d2.astimezone(dateutil.tz.tzutc())
 
-	messages = Message.objects.filter(chat_id = chat_id).filter(post_time__gte = d3).filter(user_id.id = user)
+	messages = Message.objects.filter(chat_id = chat_id)
+	messages = messages.filter(post_time__gte = d3)
+	messages = messages.filter(user_id = user)
+	print user
+	print messages
 	if len(messages) == 0:	
 		for i in range(30):
-			messages = Message.objects.filter(chat_id = chat_id).filter(post_time__gte = d3).filter(user_id.id = user)
+			messages = Message.objects.filter(chat_id = chat_id)
+			messages = messages.filter(post_time__gte = d3)
+			messages = messages.filter(user_id = user)
 			if len(messages) == 0:
 				time.sleep(1)
 			else:
