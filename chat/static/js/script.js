@@ -19,9 +19,11 @@ function createUser() {
 		}
 		user = jQuery.parseJSON(xhr.responseText);
 		document.getElementById('username').innerHTML = 'User: ' + user.name;
+		console.log('u'  + user);
 		var user_id = document.getElementById('user_id');
 		user_id.value = user.id;
-	}
+		getMessagesFromDate(date);
+}
 	xhr.send(params);
 }
 var date;
@@ -30,7 +32,6 @@ function authorisation () {
 	createUser(); 
 	date = new Date();
 	date.setHours(0,0,0,0);
-	getMessagesFromDate(date);
 	
 }
 
@@ -103,10 +104,11 @@ function formateDateChat(date) {
 }
 
 function getMessagesFromDate (date) {
+	console.log(user);
 	$.ajax({
            type: "POST",
            url: window.location.href + 'messages_from_date/',
-           data: getToken() + "&date=" + formatDate(date) + '&user=' + document.getElementById('user_id').value,
+           data: getToken() + "&date=" + formatDate(date) + '&user=' + user.id,
            success: function(messages)
            {
            		messages = jQuery.parseJSON(messages);
