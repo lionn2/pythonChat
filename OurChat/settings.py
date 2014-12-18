@@ -28,7 +28,7 @@ except:
 
 ALLOWED_HOSTS = []
 
-TIME_ZONE = 'Europe/Athens'
+TIME_ZONE = 'Europe/Kiev'
 
 LANGUAGE_CODE = 'en-us'
 
