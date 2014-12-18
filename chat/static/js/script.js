@@ -29,7 +29,7 @@ function createUser() {
 function authorisation () {
 	user.name = prompt('Enter your name');
 	createUser(); 
-	setTimeout(function {
+	setTimeout(function () {
 		getMessagesFromID(id);
 	}, 0);
 	
