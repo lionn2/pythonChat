@@ -98,18 +98,20 @@ def messages_from_date(request, chat_id):
 	messages = Message.objects.filter(chat_id = chat_id)
 	messages = messages.filter(post_time__gte = d3)
 	messages = messages.filter(user_id = user)
-	print user
 	print messages
-	
+
 	if len(messages) == 0:	
 		for i in range(30):
 			messages = Message.objects.filter(chat_id = chat_id)
 			messages = messages.filter(post_time__gte = d3)
 			messages = messages.filter(user_id = user)
 			if len(messages) == 0:
-				time.sleep(1000)
+				print i
+				time.sleep(1)
 			else:
+				print "====1HttpResponse1===="
 				return HttpResponse(serializers.serialize("json", messages))
 	else:
+		print "====2HttpResponse2===="
 		return HttpResponse(serializers.serialize("json", messages))
 	return HttpResponse("[{}]")	
