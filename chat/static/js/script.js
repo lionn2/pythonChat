@@ -2,6 +2,7 @@ var user = {}
 var chats = []
 var idChat;
 var table;
+var interval;
 // Пример с POST
 function createUser() {
 	var xhr = new XMLHttpRequest();
@@ -29,11 +30,16 @@ function authorisation () {
 	createUser(); 
 	date = new Date();
 	date.setHours(0,0,0,0);
-	//getMessagesFromDate(date);
-	setInterval(function() {
+	getMessagesFromDate(date);
+	
+}
+
+function startInterval () {
+	/*if(interval) clearInterval(interval);
+	interval = setInterval(function() {*/
 		getMessagesFromDate(date);
-		console.log(date.toISOString());
-	}, 30000);	
+		/*console.log(date.toISOString());
+	}, 30000);	*/
 }
 
 function post_message () {
@@ -100,11 +106,12 @@ function getMessagesFromDate (date) {
 	$.ajax({
            type: "POST",
            url: window.location.href + 'messages_from_date/',
-           data: getToken() + "&date=" + formatDate(date),
+           data: getToken() + "&date=" + formatDate(date) + '&user=' + $.('#user_id').value,
            success: function(messages)
            {
            		messages = jQuery.parseJSON(messages);
                 addMessagesToTable(messages);
+                startInterval();
            }
          });
 }
