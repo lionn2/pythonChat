@@ -136,5 +136,5 @@ function addMessageToTable (m) {
 	cell2.innerHTML = m.message;
 	var cell3 = row.insertCell(2);
 	cell3.innerHTML = formateDateChat(m.post_time);
-	date = m.post_time;
+	date = m.post_time + new Date(1);
 }
