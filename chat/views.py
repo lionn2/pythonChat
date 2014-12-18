@@ -86,9 +86,12 @@ def chat(request, id):
 
 
 def messages_from_date(request, chat_id):
+	print '-----------------------------------------------------------------------'
 	date = request.POST['date']
 	user = request.POST['user']
 	
+	print date
+
 	d2 = dateutil.parser.parse(date)
 	d3 = d2.astimezone(dateutil.tz.tzutc())
 
@@ -97,13 +100,14 @@ def messages_from_date(request, chat_id):
 	messages = messages.filter(user_id = user)
 	print user
 	print messages
+	
 	if len(messages) == 0:	
 		for i in range(30):
 			messages = Message.objects.filter(chat_id = chat_id)
 			messages = messages.filter(post_time__gte = d3)
 			messages = messages.filter(user_id = user)
 			if len(messages) == 0:
-				time.sleep(1)
+				time.sleep(1000)
 			else:
 				return HttpResponse(serializers.serialize("json", messages))
 	else:
