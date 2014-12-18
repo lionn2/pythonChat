@@ -3,6 +3,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 import json
 import datetime
 from django.core import serializers
+import dateutil.parser
+import time
 
 from models import Chat, Message, User
 
@@ -82,9 +84,22 @@ def chat(request, id):
 	}
 	return render(request, 'chat.html', chat)
 
+
 def messages_from_date(request, chat_id):
 	date = request.POST['date']
-	d = datetime.datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
-	messages = Message.objects.filter(chat_id = chat_id).filter(post_time__gte = d)
-	data = serializers.serialize("json", messages)
-	return HttpResponse(data)
+	user = request.POST['user']
+	
+	d2 = dateutil.parser.parse(date)
+	d3 = d2.astimezone(dateutil.tz.tzutc())
+
+	messages = Message.objects.filter(chat_id = chat_id).filter(post_time__gte = d3).filter(user_id.id = user)
+	if len(messages) == 0:	
+		for i in range(30):
+			messages = Message.objects.filter(chat_id = chat_id).filter(post_time__gte = d3).filter(user_id.id = user)
+			if len(messages) == 0:
+				time.sleep(1)
+			else:
+				return HttpResponse(serializers.serialize("json", messages))
+	else:
+		return HttpResponse(serializers.serialize("json", messages))
+	return HttpResponse("[{}]")	
