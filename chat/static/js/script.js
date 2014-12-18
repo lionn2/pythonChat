@@ -36,11 +36,11 @@ function authorisation () {
 }
 
 function startInterval () {
-	if(interval) clearInterval(interval);
-	interval = setInterval(function() {
+	if(interval) clearTimeout(interval);
+	interval = setTimeout(function() {
 		getMessagesFromDate(date);
 		console.log(date.toISOString());
-	}, 30000);	
+	}, 0);	
 }
 
 function post_message () {
