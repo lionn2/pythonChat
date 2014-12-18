@@ -29,18 +29,14 @@ function createUser() {
 function authorisation () {
 	user.name = prompt('Enter your name');
 	createUser(); 
-	setTimeout(function () {
-		getMessagesFromID(id);
-	}, 0);
+	startInterval();
 	
 }
 
 function startInterval () {
-	if(interval) clearTimeout(interval);
-	interval = setTimeout(function() {
-		getMessagesFromID(date);
-		console.log(date.toISOString());
-	}, 0);	
+	setTimeout(function () {
+		getMessagesFromID(id);
+	}, 0);
 }
 
 function post_message () {
