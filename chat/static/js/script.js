@@ -106,7 +106,7 @@ function getMessagesFromDate (date) {
 	$.ajax({
            type: "POST",
            url: window.location.href + 'messages_from_date/',
-           data: getToken() + "&date=" + formatDate(date) + '&user=' + $.('#user_id').value,
+           data: getToken() + "&date=" + formatDate(date) + '&user=' + document.getElementById('user_id').value,
            success: function(messages)
            {
            		messages = jQuery.parseJSON(messages);
