@@ -114,4 +114,5 @@ def messages_from_date(request, chat_id):
 	else:
 		print "====2HttpResponse2===="
 		return HttpResponse(serializers.serialize("json", messages))
-	return HttpResponse("[{}]")	
+	print "====3HttpResponse3===="
+	return HttpResponse("[{}]")
