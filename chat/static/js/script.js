@@ -52,7 +52,7 @@ function post_message () {
            success: function(messages)
            {
            		messages = jQuery.parseJSON(messages);
-           		addMessagesToTable(messages);
+           		//addMessagesToTable(messages);
                 textArea.value = "";
            }
          });
