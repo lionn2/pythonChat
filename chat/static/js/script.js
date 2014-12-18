@@ -3,6 +3,7 @@ var chats = []
 var idChat;
 var table;
 var interval;
+var id = 0;
 // Пример с POST
 function createUser() {
 	var xhr = new XMLHttpRequest();
@@ -22,23 +23,22 @@ function createUser() {
 		console.log('u'  + user);
 		var user_id = document.getElementById('user_id');
 		user_id.value = user.id;
-		getMessagesFromDate(date);
 }
 	xhr.send(params);
 }
-var date;
 function authorisation () {
 	user.name = prompt('Enter your name');
 	createUser(); 
-	date = new Date();
-	date.setHours(0,0,0,0);
+	setTimeout(function {
+		getMessagesFromID(id);
+	}, 0);
 	
 }
 
 function startInterval () {
 	if(interval) clearTimeout(interval);
 	interval = setTimeout(function() {
-		getMessagesFromDate(date);
+		getMessagesFromID(date);
 		console.log(date.toISOString());
 	}, 0);	
 }
@@ -103,12 +103,12 @@ function formateDateChat(date) {
 	return date.toISOString();
 }
 
-function getMessagesFromDate (date) {
+function getMessagesFromID (id) {
 	console.log(user);
 	$.ajax({
            type: "POST",
-           url: window.location.href + 'messages_from_date/',
-           data: getToken() + "&date=" + formatDate(date) + '&user=' + user.id,
+           url: window.location.href + 'messages_from_id/',
+           data: getToken() + "&id=" + id /*+ '&user=' + user.id*/,
            success: function(messages)
            {
            		messages = jQuery.parseJSON(messages);
@@ -120,6 +120,7 @@ function getMessagesFromDate (date) {
 
 function addMessagesToTable (messages) {
 	for (var i = 0; i < messages.length; i++) {
+		id = messages[i].pk;
 		m = messages[i].fields;
 		addMessageToTable(m);
 	};
@@ -136,5 +137,4 @@ function addMessageToTable (m) {
 	cell2.innerHTML = m.message;
 	var cell3 = row.insertCell(2);
 	cell3.innerHTML = formateDateChat(m.post_time);
-	date = m.post_time + new Date(1);
 }
