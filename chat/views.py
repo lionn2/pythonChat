@@ -96,7 +96,7 @@ def messages_from_id(request, chat_id):
 		for i in range(20):
 			messages = Message.objects.filter(chat_id = chat_id).filter(id__gt = id)
 			if len(messages) > 0:
-				return HttpResponse(serializers.serialize("json", messages)
+				return HttpResponse(serializers.serialize("json", messages))
 	else:
-		return HttpResponse(serializers.serialize("json", messages)
+		return HttpResponse(serializers.serialize("json", messages))
 	return HttpResponse("[]")
