@@ -102,4 +102,4 @@ def messages_from_date(request, chat_id):
 				return HttpResponse(serializers.serialize("json", messages))
 	else:
 		return HttpResponse(serializers.serialize("json", messages))
-	return HttpResponse("null")	
+	return HttpResponse("[{}]")	
