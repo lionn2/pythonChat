@@ -5,6 +5,8 @@ import datetime
 from django.core import serializers
 import dateutil.parser
 import time
+from django.utils import timezone
+from datetime import timedelta
 
 from models import Chat, Message, User
 
@@ -19,7 +21,7 @@ def name(request):
 
 def create_user(request, chat_id):
 	name = request.POST['name']
-	date_registration = datetime.datetime.now()
+	date_registration = timezone.now()
 	user = User(name = name, date_registration = date_registration)
 	user.save()
 	chat = Chat.objects.get(id=chat_id)
@@ -38,7 +40,8 @@ def drop_user(request, id):
 def post_message(request, chat_id):
 	message = request.POST['message']
 	user_id = request.POST['user_id']
-	post_time = datetime.datetime.now()
+	post_time = timezone.now()
+	post_time += timedelta(hours = 2)
 	chat = Chat.objects.get(id = chat_id)
 	user = User.objects.get(id = user_id)
 	m = Message(user_id = user, 
@@ -85,34 +88,15 @@ def chat(request, id):
 	return render(request, 'chat.html', chat)
 
 
-def messages_from_date(request, chat_id):
-	print '-----------------------------------------------------------------------'
-	date = request.POST['date']
-	user = request.POST['user']
-	
-	print date
+def messages_from_id(request, chat_id):
+	count = request.POST['count']
+	messages = Message.objects.filter(chat_id = chat_id).filter(id__gt = id)
 
-	d2 = dateutil.parser.parse(date)
-	d3 = d2.astimezone(dateutil.tz.tzutc())
-
-	messages = Message.objects.filter(chat_id = chat_id)
-	messages = messages.filter(post_time__gte = d3)
-	messages = messages.filter(user_id = user)
-	print messages
-
-	if len(messages) == 0:	
-		for i in range(30):
-			messages = Message.objects.filter(chat_id = chat_id)
-			messages = messages.filter(post_time__gte = d3)
-			messages = messages.filter(user_id = user)
-			if len(messages) == 0:
-				print i
-				time.sleep(1)
-			else:
-				print "====1HttpResponse1===="
-				return HttpResponse(serializers.serialize("json", messages))
+	if len(messages)  == 0:
+		for i in range(20):
+			messages = Message.objects.filter(chat_id = chat_id).filter(id__gt = id)
+			if len(messages) > 0:
+				return HttpResponse(serializers.serialize("json", messages)
 	else:
-		print "====2HttpResponse2===="
-		return HttpResponse(serializers.serialize("json", messages))
-	print "====3HttpResponse3===="
-	return HttpResponse("[{}]")
+		return HttpResponse(serializers.serialize("json", messages)
+	return HttpResponse("[]")
