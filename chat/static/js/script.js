@@ -27,10 +27,10 @@ function createUser() {
 	xhr.send(params);
 }
 function authorisation () {
+	
 	user.name = prompt('Enter your name');
 	createUser(); 
 	startInterval();
-	
 }
 
 function startInterval () {
@@ -61,7 +61,6 @@ function post_message () {
 function getToken () {
 	var token = document.getElementsByName('csrfmiddlewaretoken')[0].value;
 	return 'csrfmiddlewaretoken=' + token;
-
 }
 
 function formatDate (date) {
@@ -126,11 +125,15 @@ function addMessageToTable (m) {
 	var table = document.getElementById('chatTable');
 	var n = table.rows.length;
 	m.post_time = new Date(m.post_time);
-	var row = table.insertRow(table.rows.length);
+	var row = table.insertRow(0/*table.rows.length*/);
 	var cell1 = row.insertCell(0);
 	cell1.innerHTML = m.user_id;
+	cell1.width = 50;
 	var cell2 = row.insertCell(1);
 	cell2.innerHTML = m.message;
 	var cell3 = row.insertCell(2);
 	cell3.innerHTML = formateDateChat(m.post_time);
+	cell3.width = 50;
+	var objDiv = document.getElementById("mygrid-wrapper-div");
+	var d = $('#mygrid-wrapper-div');
 }
