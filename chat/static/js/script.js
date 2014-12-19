@@ -133,7 +133,8 @@ function addMessageToTable (m) {
 	cell2.innerHTML = m.message;
 	var cell3 = row.insertCell(2);
 	cell3.innerHTML = formateDateChat(m.post_time);
-	cell3.width = 50;
+	cell3.width = 80;
+	cell2.width = table.width - cell1.width - cell3.width;
 	var objDiv = document.getElementById("mygrid-wrapper-div");
 	var d = $('#mygrid-wrapper-div');
 }
