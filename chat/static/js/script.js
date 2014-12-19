@@ -130,7 +130,7 @@ function addMessageToTable (m) {
 	cell1.innerHTML = m.user_id;
 	cell1.width = 50;
 	var cell2 = row.insertCell(1);
-	cell2.innerHTML = m.message;
+	cell2.innerHTML = m.message.split('\r\n').join('<br />');
 	var cell3 = row.insertCell(2);
 	cell3.innerHTML = formateDateChat(m.post_time);
 	cell3.width = 80;
