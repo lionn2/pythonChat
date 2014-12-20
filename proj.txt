@@ -8,3 +8,19 @@ Authorization:
 post_message:
 	chat_id - parametr
 	message - POST
+
+
+
+Register:
+	method: 
+		post
+	url: 	
+		/register
+	fields:
+		username
+		password
+		email
+		first_name
+		last_name
+	response:
+		...
