@@ -7,8 +7,9 @@ import dateutil.parser
 import time
 from django.utils import timezone
 from datetime import timedelta
+from django.contrib.auth.models import User
 
-from models import Chat, Message, MyUser
+from models import Chat, Message
 
 def index(request):
 	result = {
@@ -21,7 +22,7 @@ def name(request):
 
 def create_user(request, chat_id):
 	name = request.POST['name']
-	user = MyUser(username = name,
+	user = User(username = name,
 		email = request.POST['email'],
 		password = request.POST['password'],
 		first_name = request.POST['first_name'],
@@ -48,7 +49,7 @@ def post_message(request, chat_id):
 	post_time = timezone.now()
 	post_time += timedelta(hours = 2)
 	chat = Chat.objects.get(id = chat_id)
-	user = MyUser.objects.get(id = user_id)
+	user = User.objects.get(id = user_id)
 	m = Message(user_id = user, 
 		chat_id = chat,
 		message = message,
