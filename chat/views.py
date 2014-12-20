@@ -38,7 +38,7 @@ def create_user(request):
 		if user.is_active:
 			login(request, user)
 			user_to_json = json.dumps(user.to_json())
-			return HttpResponse(user_to_json)
+			return render(request, 'index.html', user_to_json)
 		else:
 			return HttpResponse("disable account")
 	else:
