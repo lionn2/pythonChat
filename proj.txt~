@@ -1,0 +1,10 @@
+Authorization:
+	User:
+		username
+		password
+		email
+		first_name
+		last_name
+post_message:
+	chat_id - parametr
+	message - POST
