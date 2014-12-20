@@ -10,6 +10,7 @@ from datetime import timedelta
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as inlog, logout as outlog
 from models import Chat, Message
+from django.core.serializers.json import DjangoJSONEncoder
 
 def index(request):
 	result = {
@@ -72,7 +73,6 @@ def post_message(request, chat_id):
 		message = request.POST['message']
 		user = request.user
 		post_time = timezone.now()
-		post_time += timedelta(hours = 2)
 		chat = Chat.objects.get(id = chat_id)
 		m = Message(user_id = user, 
 			chat_id = chat,
@@ -80,7 +80,6 @@ def post_message(request, chat_id):
 			post_time = post_time
 			)
 		m.save()
-		print json.dumps(m.to_json())
 		return HttpResponse(json.dumps(m.to_json()))
 	else:
 		return HttpResponse("fail")
@@ -106,13 +105,8 @@ def messages_from_id(request, chat_id):
 		for i in range(30):
 			messages = Message.objects.filter(chat_id = chat_id).filter(id__gt = id)
 			if len(messages) > 0:
-				users = []
-				for i in range(len(messages)):
-					users.append(messages[i].user_id.name)
-				print users
-				messages = messages.__dic__
-				print messages
-				return HttpResponse(mes)
+				dictionaries = [ m.to_json() for m in messages]
+				return HttpResponse(json.dumps({"data": dictionaries}), content_type='application/json')
 			time.sleep(1)
 	else:
 		return HttpResponse(serializers.serialize("json", messages))
