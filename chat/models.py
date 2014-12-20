@@ -30,10 +30,20 @@ class Message(models.Model):
 			"post_time": str(self.post_time),
 		}
 
-
-
 def query_to_json(data):
 	mess = []	
 	for m in data:
 		mess.append(m.to_json())
  	return json.dumps(mess)
+
+
+class Upload(models.Model):
+    pic = models.ImageField("Image", upload_to="images/")    
+    upload_date=models.DateTimeField(auto_now_add =True)
+
+from django.forms import ModelForm
+
+# FileUpload form class.
+class UploadForm(ModelForm):
+    class Meta:
+        model = Upload

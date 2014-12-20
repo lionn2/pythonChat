@@ -63,3 +63,13 @@ messages by id:
 		message
 		id
 		chat_id
+
+create chat:
+	method:
+		post
+	url:
+		/create_chat/
+	fields:
+		chat_name
+	response:
+		render to chat.html

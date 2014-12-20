@@ -9,7 +9,8 @@ from django.utils import timezone
 from datetime import timedelta
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as inlog, logout as outlog
-from models import Chat, Message, query_to_json
+from models import Chat, Message, query_to_json, UploadForm, Upload
+from django.core.urlresolvers import reverse
 
 def index(request):
 	result = {
@@ -108,3 +109,24 @@ def messages_from_id(request, chat_id):
 	else:
 		return HttpResponse(query_to_json(messages))
 	return HttpResponse("[]")
+
+def create_chat(request):
+	chat_name = request.POST['chat_name']
+	chat = Chat(
+		chat_name = chat_name,
+		start_time = timezone.now()
+		)
+	chat.save()
+	return render(request, 'chat.html')
+
+
+def upload(request):
+    if request.method=="POST":
+        img = UploadForm(request.POST, request.FILES)       
+        if img.is_valid():
+            img.save()  
+            return HttpResponseRedirect(reverse('upload'))
+    else:
+        img=UploadForm()
+    images=Upload.objects.all()
+    return render(request,'chat.html',{'form':img,'images':images})
