@@ -22,7 +22,8 @@ def name(request):
 
 def create_user(request, chat_id):
 	name = request.POST['name']
-	user = User(username = name,
+	user = User(
+		username = name,
 		email = request.POST['email'],
 		password = request.POST['password'],
 		first_name = request.POST['first_name'],
@@ -44,19 +45,22 @@ def drop_user(request, id):
 
 
 def post_message(request, chat_id):
-	message = request.POST['message']
-	user_id = request.POST['user_id']
-	post_time = timezone.now()
-	post_time += timedelta(hours = 2)
-	chat = Chat.objects.get(id = chat_id)
-	user = User.objects.get(id = user_id)
-	m = Message(user_id = user, 
-		chat_id = chat,
-		message = message,
-		post_time = post_time
-		)
-	m.save()
-	return HttpResponse(serializers.serialize("json", [m,]))
+	if request.user.is_authenticated():
+		message = request.POST['message']
+		user_id = request.POST['user_id']
+		post_time = timezone.now()
+		post_time += timedelta(hours = 2)
+		chat = Chat.objects.get(id = chat_id)
+		user = User.objects.get(id = user_id)
+		m = Message(user_id = user, 
+			chat_id = chat,
+			message = message,
+			post_time = post_time
+			)
+		m.save()
+		return HttpResponse(serializers.serialize("json", [m,]))
+	else
+		return HttpResponse("fail")
 
 
 def edit_message(request, user_id, id):
