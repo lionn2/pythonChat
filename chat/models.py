@@ -1,9 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-class User(models.Model):
-	name = models.CharField(max_length=100)
-	date_registration = models.DateTimeField()
-
+class MyUser(User):
 	def to_json(self):
 		return {
 			"id": self.id,
@@ -14,7 +12,7 @@ class User(models.Model):
 class Chat(models.Model):
 	chat_name = models.CharField(max_length = 100)
 	start_time = models.DateTimeField()
-	users = models.ManyToManyField(User)
+	users = models.ManyToManyField(MyUser)
 
 	def to_json(self):
 		return {
@@ -26,7 +24,7 @@ class Chat(models.Model):
 
 class Message(models.Model):
 	chat_id = models.ForeignKey(Chat)
-	user_id = models.ForeignKey(User)
+	user_id = models.ForeignKey(MyUser)
 	message = models.TextField()
 	post_time = models.DateTimeField()
 

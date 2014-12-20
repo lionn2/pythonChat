@@ -8,7 +8,7 @@ import time
 from django.utils import timezone
 from datetime import timedelta
 
-from models import Chat, Message, User
+from models import Chat, Message, MyUser
 
 def index(request):
 	result = {
@@ -21,8 +21,13 @@ def name(request):
 
 def create_user(request, chat_id):
 	name = request.POST['name']
-	date_registration = timezone.now()
-	user = User(name = name, date_registration = date_registration)
+	user = MyUser(username = name,
+		email = request.POST['email'],
+		password = request.POST['password'],
+		first_name = request.POST['first_name'],
+		last_name = request.POST['last_name'],
+		)
+
 	user.save()
 	chat = Chat.objects.get(id=chat_id)
 	chat.users.add(user)
@@ -43,7 +48,7 @@ def post_message(request, chat_id):
 	post_time = timezone.now()
 	post_time += timedelta(hours = 2)
 	chat = Chat.objects.get(id = chat_id)
-	user = User.objects.get(id = user_id)
+	user = MyUser.objects.get(id = user_id)
 	m = Message(user_id = user, 
 		chat_id = chat,
 		message = message,

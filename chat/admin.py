@@ -8,11 +8,11 @@ class ChatAdmin(admin.ModelAdmin):
 admin.site.register(Chat, ChatAdmin)
 
 
-class UserAdmin(admin.ModelAdmin):
+class MyUserAdmin(admin.ModelAdmin):
     fields = ['name', 'date_registration']
 
 
-admin.site.register(User, UserAdmin)
+admin.site.register(MyUser, MyUserAdmin)
 
 
 class MessageAdmin(admin.ModelAdmin):
