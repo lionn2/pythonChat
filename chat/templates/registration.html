@@ -1,89 +1,84 @@
 {% load staticfiles %}
-
 <!Doctype HTML>
 <html>
-	<head>
-		<meta charset="utf8">
-		<title>Web Chat</title> 
-		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.css' %}" />
-		<script language="JavaScript" type="text/javascript" src="{% static 'js/registration.js' %}"></script>
-		<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-		<style type="text/css" media="screen">
-			
-		</style>
-	</head>
-	<body>
+<head>
+  <meta charset="utf8">
+  <title>Web Chat</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.css' %}" />
+  <script language="JavaScript" type="text/javascript" src="{% static 'js/registration.js' %}"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+  <style type="text/css" media="screen"></style>
+</head>
+<body>
   <div class="container">
-  <div class="col-lg-6 offset-3">
-<form id="reg_form" class="form-horizontal">
-  <fieldset>
+    <div class="col-lg-6 offset-3">
+      <form id="reg_form" class="form-horizontal" action="/create_user/" method="post">
+        <fieldset>
 
-    <div id="legend">
-      <legend class="">Register</legend>
-    </div>
+          <div id="legend">
+            <legend class="">Register</legend>
+          </div>
 
+          <div class="form-group">
+            <!-- Username -->
+            <label class="control-label"  for="username">Username</label>
+            <div class="controls">
+              {% csrf_token %}
+              <input type="text" id="username" name="username" placeholder="" class="form-control">
+              <p class="help-block">Username can contain any letters or numbers, without spaces</p>
+            </div>
+          </div>
 
-    <div class="form-group">
-      <!-- Username -->
-      <label class="control-label"  for="username">Username</label>
-      <div class="controls">
-        {% csrf_token %}
-        <input type="text" id="username" name="username" placeholder="" class="form-control">
-        <p class="help-block">Username can contain any letters or numbers, without spaces</p>
-      </div>
-    </div>
+          <div class="form-group">
+            <!-- Username -->
+            <label class="control-label"  for="first_name">FirstName</label>
+            <div class="controls">
+              <input type="text" id="first_name" name="first_name" placeholder="" class="form-control">
+              <p class="help-block">Username can contain any letters or numbers, without spaces</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <!-- Username -->
+            <label class="control-label"  for="last_name">LastName</label>
+            <div class="controls">
+              <input type="text" id="last_name" name="last_name" placeholder="" class="form-control">
+              <p class="help-block">Username can contain any letters or numbers, without spaces</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <!-- E-mail -->
+            <label class="control-label" for="email">E-mail</label>
+            <div class="controls">
+              <input type="text" id="email" name="email" placeholder="" class="form-control">
+              <p class="help-block">Please provide your E-mail</p>
+            </div>
+          </div>
 
-    <div class="form-group">
-      <!-- Username -->
-      <label class="control-label"  for="first_name">FirstName</label>
-      <div class="controls">
-        <input type="text" id="first_name" name="first_name" placeholder="" class="form-control">
-        <p class="help-block">Username can contain any letters or numbers, without spaces</p>
-      </div>
-    </div>
-    <div class="form-group">
-      <!-- Username -->
-      <label class="control-label"  for="last_name">LastName</label>
-      <div class="controls">
-        <input type="text" id="last_name" name="last_name" placeholder="" class="form-control">
-        <p class="help-block">Username can contain any letters or numbers, without spaces</p>
-      </div>
-    </div>
-    <div class="form-group">
-      <!-- E-mail -->
-      <label class="control-label" for="email">E-mail</label>
-      <div class="controls">
-        <input type="text" id="email" name="email" placeholder="" class="form-control">
-        <p class="help-block">Please provide your E-mail</p>
-      </div>
-    </div>
- 
-    <div class="form-group">
-      <!-- Password-->
-      <label class="control-label" for="password">Password</label>
-      <div class="controls">
-        <input type="password" id="password" name="password" placeholder="" class="form-control">
-        <p class="help-block">Password should be at least 4 characters</p>
-      </div>
-    </div>
- 
-    <!--<div class="form-group">
-      <!-- Password --
+          <div class="form-group">
+            <!-- Password-->
+            <label class="control-label" for="password">Password</label>
+            <div class="controls">
+              <input type="password" id="password" name="password" placeholder="" class="form-control">
+              <p class="help-block">Password should be at least 4 characters</p>
+            </div>
+          </div>
+
+          <!--<div class="form-group">
+          <!-- Password --
       <label class="control-label"  for="password_confirm">Password (Confirm)</label>
-      <div class="controls">
-        <input type="password" id="password_confirm" name="password_confirm" placeholder="" class="form-control">
-        <p class="help-block">Please confirm password</p>
+        <div class="controls">
+          <input type="password" id="password_confirm" name="password_confirm" placeholder="" class="form-control">
+          <p class="help-block">Please confirm password</p>
+        </div>
       </div>
-    </div>-->
- 
-    <div class="form-group">
-      <!-- Button -->
-      <div class="controls">
+      -->
+      <div class="form-group">
+        <!-- Button -->
+      <button class="btn btn-success">Register</button>
+        <div class="controls"></div>
       </div>
-    </div>
-  </fieldset>
-</form>
-        <button class="btn btn-success" onclick="f()">Register</button>
+    </fieldset>
+  </form>
 </div>
 </div>
 </body>
