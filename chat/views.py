@@ -8,7 +8,7 @@ import time
 from django.utils import timezone
 from datetime import timedelta
 from django.contrib.auth.models import User
-
+from django.contrib.auth import authenticate, login
 from models import Chat, Message
 
 def index(request):
@@ -29,13 +29,20 @@ def create_user(request, chat_id):
 		first_name = request.POST['first_name'],
 		last_name = request.POST['last_name'],
 		)
-
 	user.save()
-	chat = Chat.objects.get(id=chat_id)
-	chat.users.add(user)
-	chat.save()
-	user_to_json = json.dumps(user.to_json())
-	return HttpResponse(user_to_json)
+	user = authenticate(username=username, password=password)
+	if user is not None:
+        if user.is_active:
+            login(request, user)
+			chat = Chat.objects.get(id=chat_id)
+			chat.users.add(user)
+			chat.save()
+			user_to_json = json.dumps(user.to_json())
+			return HttpResponse(user_to_json)
+		else:
+			return HttpResponse("disable account")
+	else:
+		return HttpResponse("invalid account")
 
 
 def drop_user(request, id):
@@ -59,7 +66,7 @@ def post_message(request, chat_id):
 			)
 		m.save()
 		return HttpResponse(serializers.serialize("json", [m,]))
-	else
+	else:
 		return HttpResponse("fail")
 
 
@@ -91,12 +98,16 @@ def delete_message(request, user_id, id):
 
 
 def chat(request, id):
-	chat = {
-		"chat": Chat.objects.get(id=id),
-		"messages": Message.objects.filter(chat_id = id).all(),
-	}
-	return render(request, 'chat.html', chat)
+	try:
+		chat = {
+			"chat": Chat.objects.get(id=id),
+			"messages": Message.objects.filter(chat_id = id).all(),
+		}
 
+		return render(request, 'chat.html', chat)	
+	except Exception, e:
+		return HttpResponse("No chats")
+	
 
 def messages_from_id(request, chat_id):
 	id = request.POST['id']
