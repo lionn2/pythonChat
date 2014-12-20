@@ -9,16 +9,12 @@ post_message:
 	chat_id - parametr
 	message - POST
 
-Register:
-	url(registration) -> data -> url(create_user)
-
-
 
 Register:
 	method: 
 		post
 	url: 	
-		/register
+		/create_user
 	fields:
 		username
 		password
@@ -26,4 +22,4 @@ Register:
 		first_name
 		last_name
 	response:
-		...
+		user - json
