@@ -16,6 +16,26 @@
 	</head>
 	<body>
 		{% csrf_token %}
+		<div class="navbar navbar-inverse">
+		  <div class="navbar-collapse collapse navbar-inverse-collapse">
+		    <ul class="nav navbar-nav">
+		      <li><a href="#">Home</a></li>
+		      
+		    </ul>
+		     <form class="navbar-form navbar-right" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="username" placeholder="Username">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="password" placeholder="Password">
+                    </div>
+                    <button type="submit" class="btn btn-default">Sign In</button>
+                	<button href='registration' class="btn btn-default">Sign Up</button>
+                </form>
+
+                
+		  </div>
+		</div>
 		<div class="container">
 			<table class="table table-striped table-hover">
 				<tr>

@@ -107,7 +107,9 @@ function getMessagesFromID (id) {
            success: function(messages)
            {
            		messages = jQuery.parseJSON(messages);
+                console.log(messages);
                 addMessagesToTable(messages);
+
                 startInterval();
            }
          });
@@ -128,9 +130,13 @@ function addMessageToTable (m) {
 	var row = table.insertRow(0/*table.rows.length*/);
 	var cell1 = row.insertCell(0);
 	cell1.innerHTML = m.user_id;
-	cell1.width = 50;
+	cell1['min-width'] = 'auto';
+	cell1['max-width'] = 150;
+	cell1.width = 120;
+	cell1['text-align'] = 'right';
 	var cell2 = row.insertCell(1);
 	cell2.innerHTML = m.message.split('\r\n').join('<br />');
+	cell2['word-break'] = 'break-word';
 	var cell3 = row.insertCell(2);
 	cell3.innerHTML = formateDateChat(m.post_time);
 	cell3.width = 80;
