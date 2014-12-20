@@ -12,7 +12,6 @@ from django.contrib.auth import authenticate, login
 from models import Chat, Message
 
 def index(request):
-	print request.user
 	result = {
 		"chats": Chat.objects.all()
 	}
@@ -49,6 +48,24 @@ def create_user(request):
 	else:
 		print "invalid account"
 		return HttpResponse("invalid account")
+
+
+def login(request):
+	user = authenticate(username = username, password = password)
+	if user is not None:
+		if user.is_active:
+			login(request, user)
+			return redirect('/')
+		else:
+			print "disable account"
+			return HttpResponse("disable account")
+	else:
+		print "invalid account"
+		return HttpResponse("invalid account")
+
+def logout(request):
+	logout(request)
+	return redirect('/')
 
 
 def drop_user(request, id):

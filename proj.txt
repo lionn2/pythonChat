@@ -24,3 +24,14 @@ Register:
 	response:
 		result.
 			username
+
+sing in:
+	method:
+		login
+	url:
+		/login
+	fields:
+		username
+		password
+	response:
+		redirect to main page
