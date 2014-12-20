@@ -8,7 +8,7 @@ import time
 from django.utils import timezone
 from datetime import timedelta
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout as outlog
+from django.contrib.auth import authenticate, login as inlog, logout as outlog
 from models import Chat, Message
 
 def index(request):
@@ -38,9 +38,11 @@ def create_user(request):
 
 	user = authenticate(username = username, password = password)
 	
+	print user
+
 	if user is not None:
 		if user.is_active:
-			login(request, user)
+			inlog(request, user)
 			return redirect('/')
 		else:
 			print "disable account"
@@ -54,7 +56,7 @@ def login(request):
 	user = authenticate(username = request.POST['username'], password = request.POST['password'])
 	if user is not None:
 		if user.is_active:
-			login(request, user)
+			inlog(request, user)
 			return redirect('/')
 		else:
 			print "disable account"
