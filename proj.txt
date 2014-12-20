@@ -49,3 +49,17 @@ post message:
 		message
 		id
 		chat_id
+
+messages by id:
+	method:
+		post
+	url:
+		/chat/<chat_id>/messages_from_id/
+	fields:
+		id
+	response:
+		user
+		post_time
+		message
+		id
+		chat_id

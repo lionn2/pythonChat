@@ -106,7 +106,7 @@ def messages_from_id(request, chat_id):
 			messages = Message.objects.filter(chat_id = chat_id).filter(id__gt = id)
 			if len(messages) > 0:
 				dictionaries = [ m.to_json() for m in messages]
-				return HttpResponse(json.dumps({"data": dictionaries}), content_type='application/json')
+				return HttpResponse(json.dumps({"data": dictionaries}))
 			time.sleep(1)
 	else:
 		return HttpResponse(serializers.serialize("json", messages))
