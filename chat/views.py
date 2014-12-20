@@ -24,24 +24,33 @@ def registration(request):
 	return render(request, 'registration.html')
 
 def create_user(request):
-	name = request.POST['name']
-	user = User(
-		username = name,
+	username = request.POST['username']
+	password = request.POST['password']
+	user = User.objects.create_user(
+		username = username,
 		email = request.POST['email'],
-		password = request.POST['password'],
+		password = password,
 		first_name = request.POST['first_name'],
 		last_name = request.POST['last_name'],
 		)
+
 	user.save()
-	user = authenticate(username=username, password=password)
+
+	user = authenticate(username = username, password = password)
+	
 	if user is not None:
 		if user.is_active:
 			login(request, user)
-			user_to_json = json.dumps(user.to_json())
-			return render(request, 'index.html', user_to_json)
+			data = {
+				'username': username,
+			}
+			print 'adadadadadasdada'
+			return render(request, 'index.html', data)
 		else:
+			print "disable account"
 			return HttpResponse("disable account")
 	else:
+		print "invalid account"
 		return HttpResponse("invalid account")
 
 

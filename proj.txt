@@ -22,4 +22,5 @@ Register:
 		first_name
 		last_name
 	response:
-		user - json
+		result.
+			username
