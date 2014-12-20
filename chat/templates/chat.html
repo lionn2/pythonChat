@@ -12,7 +12,8 @@
 		<style type="text/css" media="screen">
 			.mygrid-wrapper-div {
 				height: 480px;
-				overflow-y: auto; 
+				overflow-y: auto;
+				word-break: break-word;
 			}
 		</style>
 	</head>
@@ -42,7 +43,7 @@
 			      	</div>
 			      	<form id="post_message">
 			      	{% csrf_token %}
-			        <textarea class="form-control" rows="3" id="textArea" name="message"></textarea>
+			        <textarea class="form-control" rows="3" id="textArea" name="message" onkeypress="if (event.keyCode == 13 && event.shiftKey) this.innterHTML += '\n'; else if (event.keyCode == 13)post_message(); "></textarea>
 			        <input type="hidden" name="user_id" id="user_id" />
 			        </form>
 			        <button class="btn btn-primary" onclick="post_message()">Send</button>

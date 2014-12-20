@@ -23,7 +23,7 @@
 					<td>Chat name</td>
 				</tr>
 				{% for chat in chats %}
-				<tr onclick="document.location = 'chat/{{ chat.id }}'">
+				<tr style="cursor: pointer" onclick="document.location = 'chat/{{ chat.id }}'">
 					<td>{{ chat.id }}</td>
 					<td>{{ chat.chat_name }}</td>
 				</tr>
