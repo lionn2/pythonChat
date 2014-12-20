@@ -35,3 +35,17 @@ sing in:
 		password
 	response:
 		redirect to main page
+
+post message:
+	method:
+		post
+	url:
+		/chat/<chat_id>/post_message/
+	fileds:
+		message
+	response:
+		user
+		post_time
+		message
+		id
+		chat_id

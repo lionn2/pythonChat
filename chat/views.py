@@ -17,9 +17,6 @@ def index(request):
 	}
 	return render(request, 'index.html', result)
 
-def name(request):
-	return render(request, 'name.html')
-
 def registration(request):
 	return render(request, 'registration.html')
 
@@ -66,63 +63,27 @@ def login(request):
 		return HttpResponse("invalid account")
 
 def logout(request):
-	print '111111111111111111111'
-	#time.sleep(5)
 	outlog(request)
-	print '222222222222222222222'
 	return redirect('/')
-
-
-def drop_user(request, id):
-	user = User.objects.get(id=id)
-	user.delete()
-	return HttpResponse('result:ok')
 
 
 def post_message(request, chat_id):
 	if request.user.is_authenticated():
 		message = request.POST['message']
-		user_id = request.POST['user_id']
+		user = request.user
 		post_time = timezone.now()
 		post_time += timedelta(hours = 2)
 		chat = Chat.objects.get(id = chat_id)
-		user = User.objects.get(id = user_id)
 		m = Message(user_id = user, 
 			chat_id = chat,
 			message = message,
 			post_time = post_time
 			)
 		m.save()
-		return HttpResponse(serializers.serialize("json", [m,]))
+		print json.dumps(m.to_json())
+		return HttpResponse(json.dumps(m.to_json()))
 	else:
 		return HttpResponse("fail")
-
-
-def edit_message(request, user_id, id):
-	message = Message.objects.get(id = id)
-	if message.user_id.id == user_id:
-		return HttpResponse(json.dumps(message.to_json()))
-	else:
-		return HttpResponse('result:no')
-
-
-def post_edit_message(request, user_id, id):
-	message = Message.objects.get(id=id)
-	if user_id == message.user_id.id:
-		message.message = request.POST['message']
-		message.post_time = datetime.datetime.now()
-		return HttpResponse(json.dumps(message.to_json()))
-	else:
-		return HttpResponse('result:no')
-
-
-def delete_message(request, user_id, id):
-	message = Message.objects.get(id = id)
-	if message.user_id.id == user_id:
-		message.delete()
-		return HttpResponse('result:ok')
-	else:
-		return HttpResponse('result:no')
 
 
 def chat(request, id):
@@ -149,10 +110,8 @@ def messages_from_id(request, chat_id):
 				for i in range(len(messages)):
 					users.append(messages[i].user_id.name)
 				print users
-				mes = {
-					'messages': serializers.serialize("json", messages),	#my messages
-					'users': json.dumps(users),			#my users
-				}
+				messages = messages.__dic__
+				print messages
 				return HttpResponse(mes)
 			time.sleep(1)
 	else:
