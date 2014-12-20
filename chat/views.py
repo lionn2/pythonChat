@@ -35,8 +35,8 @@ def create_user(request):
 	user.save()
 	user = authenticate(username=username, password=password)
 	if user is not None:
-        if user.is_active:
-            login(request, user)
+		if user.is_active:
+    		#login(request, user)
 			user_to_json = json.dumps(user.to_json())
 			return HttpResponse(user_to_json)
 		else:

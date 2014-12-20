@@ -9,6 +9,9 @@ post_message:
 	chat_id - parametr
 	message - POST
 
+Register:
+	url(registration) -> data -> url(create_user)
+
 
 
 Register:
