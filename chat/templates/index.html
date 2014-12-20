@@ -26,8 +26,8 @@
 
 				</ul>
 				<div class="navbar-form navbar-right" role="search">
-				{% if request.user.is_authenticated %}
-				<p>Hello, </p>
+				{% if user.is_authenticated %}
+				<span>Hello, {{ user.username }}</span>
 					<a href='registration/'>
 						<button class="btn btn-default">Sign Out</button>
 					</a>
