@@ -92,13 +92,19 @@ def messages_from_id(request, chat_id):
 	id = request.POST['id']
 	messages = Message.objects.filter(chat_id = chat_id).filter(id__gt = id)
 
-	print "data"
-
 	if len(messages) == 0:
 		for i in range(30):
 			messages = Message.objects.filter(chat_id = chat_id).filter(id__gt = id)
 			if len(messages) > 0:
-				return HttpResponse(serializers.serialize("json", messages))
+				users = []
+				for i in range(len(messages)):
+					users.append(messages[i].user_id.name)
+				print users
+				mes = {
+					'messages': serializers.serialize("json", messages),	#my messages
+					'users': json.dumps(users),			#my users
+				}
+				return HttpResponse(mes)
 			time.sleep(1)
 	else:
 		return HttpResponse(serializers.serialize("json", messages))
