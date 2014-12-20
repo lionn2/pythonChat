@@ -20,7 +20,10 @@ def index(request):
 def name(request):
 	return render(request, 'name.html')
 
-def create_user(request, chat_id):
+def registration(request):
+	return render(request, 'registration.html')
+
+def create_user(request):
 	name = request.POST['name']
 	user = User(
 		username = name,
@@ -34,9 +37,6 @@ def create_user(request, chat_id):
 	if user is not None:
         if user.is_active:
             login(request, user)
-			chat = Chat.objects.get(id=chat_id)
-			chat.users.add(user)
-			chat.save()
 			user_to_json = json.dumps(user.to_json())
 			return HttpResponse(user_to_json)
 		else:
