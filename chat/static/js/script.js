@@ -28,8 +28,8 @@ function createUser() {
 }
 function authorisation () {
 	
-	user.name = prompt('Enter your name');
-	createUser(); 
+	/*user.name = prompt('Enter your name');
+	createUser(); */
 	startInterval();
 }
 

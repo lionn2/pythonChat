@@ -1,4 +1,4 @@
-function f () {
+/*function f () {
 	console.log('js');
 	$.ajax({
            type: "POST",
@@ -11,5 +11,5 @@ function f () {
                 textArea.value = "";
            }
          });
-}
+}*/
 console.log('reg')
