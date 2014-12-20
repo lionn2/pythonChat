@@ -9,8 +9,7 @@ from django.utils import timezone
 from datetime import timedelta
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as inlog, logout as outlog
-from models import Chat, Message
-from django.core.serializers.json import DjangoJSONEncoder
+from models import Chat, Message, query_to_json
 
 def index(request):
 	result = {
@@ -100,14 +99,12 @@ def chat(request, id):
 def messages_from_id(request, chat_id):
 	id = request.POST['id']
 	messages = Message.objects.filter(chat_id = chat_id).filter(id__gt = id)
-
 	if len(messages) == 0:
 		for i in range(30):
 			messages = Message.objects.filter(chat_id = chat_id).filter(id__gt = id)
 			if len(messages) > 0:
-				dictionaries = [ m.to_json() for m in messages]
-				return HttpResponse(json.dumps({"data": dictionaries}))
+				return HttpResponse(query_to_json(messages))
 			time.sleep(1)
 	else:
-		return HttpResponse(serializers.serialize("json", messages))
+		return HttpResponse(query_to_json(messages))
 	return HttpResponse("[]")

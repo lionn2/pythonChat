@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import json
 
 class Chat(models.Model):
 	chat_name = models.CharField(max_length = 100)
@@ -28,3 +29,11 @@ class Message(models.Model):
 			"message": self.message,
 			"post_time": str(self.post_time),
 		}
+
+
+
+def query_to_json(data):
+	mess = []	
+	for m in data:
+		mess.append(m.to_json())
+ 	return json.dumps(mess)
