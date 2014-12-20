@@ -102,12 +102,11 @@ function getMessagesFromID (id) {
 	console.log(user);
 	$.ajax({
            type: "POST",
-           url: window.location.href + 'messages_from_id/',
-           data: getToken() + "&id=" + id /*+ '&user=' + user.id*/,
+           url: 'messages_from_id/',
+           data: getToken() + "&id=" + id,
            success: function(messages)
            {
            		messages = jQuery.parseJSON(messages);
-                console.log(messages);
                 addMessagesToTable(messages);
 
                 startInterval();
@@ -117,30 +116,27 @@ function getMessagesFromID (id) {
 
 function addMessagesToTable (messages) {
 	for (var i = 0; i < messages.length; i++) {
-		id = messages[i].pk;
-		m = messages[i].fields;
-		addMessageToTable(m);
+		var m = messages[i];
+		console.log(m);
+		var table = document.getElementById('chatTable');
+		//var n = table.rows.length;
+		id = m.id;
+		m.post_time = new Date(m.post_time);
+		var row = table.insertRow(0/*table.rows.length*/);
+		var cell1 = row.insertCell(0);
+		cell1.innerHTML = m.user;
+		cell1['min-width'] = 'auto';
+		cell1['max-width'] = 150;
+		cell1.width = 120;
+		cell1['text-align'] = 'right';
+		var cell2 = row.insertCell(1);
+		cell2.innerHTML = m.message.split('\r\n').join('<br />');
+		cell2['word-break'] = 'break-word';
+		var cell3 = row.insertCell(2);
+		cell3.innerHTML = formateDateChat(m.post_time);
+		cell3.width = 80;
+		cell2.width = table.width - cell1.width - cell3.width;
+		var objDiv = document.getElementById("mygrid-wrapper-div");
+		var d = $('#mygrid-wrapper-div');	
 	};
-}
-
-function addMessageToTable (m) {
-	var table = document.getElementById('chatTable');
-	var n = table.rows.length;
-	m.post_time = new Date(m.post_time);
-	var row = table.insertRow(0/*table.rows.length*/);
-	var cell1 = row.insertCell(0);
-	cell1.innerHTML = m.user_id;
-	cell1['min-width'] = 'auto';
-	cell1['max-width'] = 150;
-	cell1.width = 120;
-	cell1['text-align'] = 'right';
-	var cell2 = row.insertCell(1);
-	cell2.innerHTML = m.message.split('\r\n').join('<br />');
-	cell2['word-break'] = 'break-word';
-	var cell3 = row.insertCell(2);
-	cell3.innerHTML = formateDateChat(m.post_time);
-	cell3.width = 80;
-	cell2.width = table.width - cell1.width - cell3.width;
-	var objDiv = document.getElementById("mygrid-wrapper-div");
-	var d = $('#mygrid-wrapper-div');
 }
