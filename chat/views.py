@@ -51,7 +51,7 @@ def create_user(request):
 
 
 def login(request):
-	user = authenticate(username = username, password = password)
+	user = authenticate(username = request.POST['username'], password = request.POST['password'])
 	if user is not None:
 		if user.is_active:
 			login(request, user)
