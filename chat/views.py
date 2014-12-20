@@ -8,7 +8,7 @@ import time
 from django.utils import timezone
 from datetime import timedelta
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout as outlog
 from models import Chat, Message
 
 def index(request):
@@ -64,7 +64,10 @@ def login(request):
 		return HttpResponse("invalid account")
 
 def logout(request):
-	logout(request)
+	print '111111111111111111111'
+	#time.sleep(5)
+	outlog(request)
+	print '222222222222222222222'
 	return redirect('/')
 
 
