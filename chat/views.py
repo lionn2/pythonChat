@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 import json
 import datetime
@@ -12,6 +12,7 @@ from django.contrib.auth import authenticate, login
 from models import Chat, Message
 
 def index(request):
+	print request.user
 	result = {
 		"chats": Chat.objects.all()
 	}
@@ -41,11 +42,7 @@ def create_user(request):
 	if user is not None:
 		if user.is_active:
 			login(request, user)
-			data = {
-				'username': username,
-			}
-			print 'adadadadadasdada'
-			return render(request, 'index.html', data)
+			return redirect('/')
 		else:
 			print "disable account"
 			return HttpResponse("disable account")
