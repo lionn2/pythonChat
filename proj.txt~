@@ -5,3 +5,6 @@ Authorization:
 		email
 		first_name
 		last_name
+post_message:
+	chat_id - parametr
+	message - POST
