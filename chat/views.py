@@ -95,21 +95,20 @@ def chat(request, id):
 		chat = None
 		try:
 			if request.user.is_authenticated():
+				i = i + 1
 				chat = Chat.objects.get(id=id)
 				_is = True
 				if chat.users.count() is not 0:
-					print 'All users' + str(chat.users.all())
 					for u in chat.users.all():
-						print'user' + str(u)
 						if u == request.user:
 							_is = False	
 							break
 				if _is:
 					chat.users.add(request.user)
 					message = Message(
-						chat_id = id,
-						user_id = request.user,
-						message = request.user + " ввійшов в чат",
+						chat_id = chat,
+						user_id = User.objects.get(username = request.user),
+						message = str(request.user) + " enter to chat",
 						post_time = timezone.now(),
 						_type = 1,
 						)
