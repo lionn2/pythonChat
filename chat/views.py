@@ -102,11 +102,8 @@ def chat(request, id):
 						if u == request.user:
 							_is = False	
 							break
-				print _is
 				if _is:
-					print '111111111111111111111111111111'
 					chat.users.add(request.user)
-					print '222222222222222222222222222222'
 					message = Message(
 						chat_id = chat,
 						user_id = User.objects.get(username = request.user),
@@ -121,7 +118,6 @@ def chat(request, id):
 				chat.save()
 		except:
 			return HttpResponse('fail')
-		print '33333333333333333333333333333333333'
 		users = chat.users.all()
 		
 		_chat = {
@@ -129,8 +125,6 @@ def chat(request, id):
 			"messages": Message.objects.filter(chat_id = id),
 		}
 		chat = Chat.objects.get(id = id)
-		for u in users:
-			print u
 		return render(request, 'chat.html', _chat)	
 	except Exception, e:
 		print e
