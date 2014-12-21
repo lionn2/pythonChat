@@ -89,7 +89,7 @@ delete chat:
 
 add user to chat:
 	method:
-		get
+		add to chat functions
 	url:
 		/chat/<chat_id>/
 	fields:

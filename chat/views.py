@@ -109,7 +109,8 @@ def chat(request, id):
 					message = Message(
 						chat_id = id,
 						user_id = request.user,
-						message = request.user + " entered the chat",
+
+						message = request.user + " ввійшов в чат",
 						post_time = timezone.now(),
 						_type = 1,
 						)
