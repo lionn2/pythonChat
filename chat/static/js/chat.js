@@ -75,14 +75,21 @@ function addMessagesToTable (messages) {
 		var row = table.insertRow(0/*table.rows.length*/);
 		row.className = 'chat-row';
 		var cell1 = row.insertCell(0);
-		cell1.innerHTML = m.user;
-		cell1.className = 'chat-cell-username';
 		var cell2 = row.insertCell(1);
-		cell2.className = 'chat-cell-message';
-		cell2.innerHTML = m.message.split('\r\n').join('<br />');
 		var cell3 = row.insertCell(2);
-		cell3.innerHTML = formateDateChat(m.post_time);
+		cell1.className = 'chat-cell-username';
+		cell2.className = 'chat-cell-message';
 		cell3.className = 'chat-cell-time';
+
+		if(m.type == 1) {
+			addUser(m.user);
+		} else if(m.type == 2) {
+			delUser(m.user);
+		} else {
+			cell1.innerHTML = m.user;
+		}
+		cell2.innerHTML = m.message.split('\r\n').join('<br />');
+		cell3.innerHTML = formateDateChat(m.post_time);
 	};
 }
 
@@ -96,5 +103,14 @@ function textAreaKey (el, event) {
 }
 
 function sortUsers () {
+	//todo
+}
+
+function addUser (user) {
 	
+	$('#chat-users').append('<a href=\'#\' class=\'list-group-item\'>' + user + '</a>\n');
+}
+
+function delUser (user) {
+	//todo
 }
