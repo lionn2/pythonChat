@@ -58,7 +58,6 @@ function getMessagesFromID (id) {
            success: function(messages)
            {
            		messages = jQuery.parseJSON(messages);
-           		console.log(messages);
                 addMessagesToTable(messages);
 
                 startInterval();
@@ -85,4 +84,13 @@ function addMessagesToTable (messages) {
 		cell3.innerHTML = formateDateChat(m.post_time);
 		cell3.className = 'chat-cell-time';
 	};
+}
+
+function textAreaKey (el, event) {
+	if (event.keyCode == 13 && event.shiftKey) {
+		el.innterHTML += '\n'; 
+	}
+	else if (event.keyCode == 13) {
+		post_message(); 
+	}
 }
