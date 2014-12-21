@@ -51,14 +51,16 @@
 			</div>
 		</div>
 		<div class="col-lg-4">
+
 			<div class="panel panel-default">
 				<div class="panel-heading">Users</div>
-				<div class="panel-body panel-users">
-					<div id="chat-users" style="display:none">
-						{% for user in chat.users.all %}
-							{{ user.username }}<br />
-						{% endfor %}
-					</div>
+
+				<div class="list-group" id="chat-users">
+					<!--{% for user in chat.users.all %}
+					<a href="/user/{{ user.id }}/" class="list-group-item">
+						{{ user.username }}
+					</a>
+					{% endfor %}-->
 				</div>
 			</div>
 		</div>
