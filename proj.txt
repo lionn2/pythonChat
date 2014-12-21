@@ -22,8 +22,7 @@ Register:
 		first_name
 		last_name
 	response:
-		result.
-			username
+		redirect to /
 
 sing in:
 	method:
@@ -34,8 +33,8 @@ sing in:
 		username
 		password
 	response:
-		redirect to main page
-
+		redirect to /
+		
 post message:
 	method:
 		post
@@ -82,4 +81,4 @@ delete chat:
 	fields:
 		chat_id
 	response:
-		redirect to /
+		result: "OK"   **а ваще похуй шо**

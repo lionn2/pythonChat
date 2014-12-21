@@ -8,13 +8,6 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
 	<script language="JavaScript" type="text/javascript" src="{% static 'js/script.js' %}"></script>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-	<script type="text/javascript">
-		function is_valid_form() {
-			if (!$('#chat_name')[0].value)
-        		return false;
-        	return true;
-		}
-	</script>
 </head>
 <body>
 	{% include 'topmenu.html' %}
@@ -26,19 +19,13 @@
 		</tr>
 		-->
 			{% for chat in chats %}
-		<tr class="tr-hover" onclick="document.location = 'chat/{{ chat.id }}'">
-			<form class="form" id="form-delete-chat" action="/delete_chat/" method="post">
-				<fieldset>
-					{% csrf_token %}
-					<td>
-						<h4>{{ chat.chat_name }}</h4>
-					</td>
-					<input class="form-control" type="hidden" name="chat_id" class="chat_id" value="{{ chat.id }}" />
-					<td class="td-chats-button">
-						<button class="btn btn-primary btn-block" onclick="delete_chat()">Delete</button>
-					</td>
-				</fieldset>
-			</form>
+		<tr class="tr-hover">
+			<td onclick="document.location = 'chat/{{ chat.id }}'">
+				<h4>{{ chat.chat_name }}</h4>
+			</td>
+			<td class="td-chats-button">
+				<button class="btn btn-primary btn-block" onclick="deleteChat(this, {{chat.id}})">Delete</button>
+			</td>
 		</tr>
 		{% endfor %}
 		<tr>
@@ -51,7 +38,6 @@
 					<td class="td-chats-button">
 						<button class="btn btn-default btn-block" onclick="return is_valid_form()">Add</button>
 					</td>
-
 				</fieldset>
 			</form>
 		</tr>
