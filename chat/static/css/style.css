@@ -1,0 +1,27 @@
+.tr-hover:hover > td {
+	background-color: #ECE4D7;
+	cursor: pointer;
+}
+.mygrid-wrapper-div {
+	height: 350px;
+	overflow-y: auto;
+}
+.chat-cell-username {
+	width: 100px;
+	max-width: 150px;
+	min-width: 80px;
+	text-align: right;
+}
+.chat-cell-message {
+	word-break: break-word;
+}
+.chat-cell-time {
+	width: 80px;
+}
+.btn-default, .btn-default:hover {
+	//background-color:  #ECE4D7;;
+	//border: 1px solid #83817F;
+}
+.td-chats-button {
+	width: 60px;
+}

@@ -1,4 +1,4 @@
-<div class="navbar navbar-inverse">
+<div class="navbar navbar-default">
 		<div class="navbar-collapse collapse navbar-inverse-collapse">
 			<div class="container">
 				<ul class="nav navbar-nav">
@@ -9,7 +9,7 @@
 				</ul>
 				{% if user.is_authenticated %}
 				<div class="navbar-form navbar-right" role="search">
-					<span>Hello, {{ user.username }}</span>
+					<span style="color: white;">Hello, {{ user.username }}</span>
 					<a href='/logout/'>
 						<button class="btn btn-default">Sign Out</button>
 					</a>
@@ -26,7 +26,7 @@
 						<div class="form-group">
 							<input type="text" class="form-control" name="username" placeholder="Username"></div>
 						<div class="form-group">
-							<input type="text" class="form-control" name="password" placeholder="Password"></div>
+							<input type="password" class="form-control" name="password" placeholder="Password"></div>
 						<button type="submit" class="btn btn-default">Sign In</button>
 					</form>
 				</div>

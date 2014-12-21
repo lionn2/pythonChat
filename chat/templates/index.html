@@ -4,33 +4,59 @@
 <head>
 	<meta charset="utf8">
 	<title>Web Chat</title>
-	<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
 	<script language="JavaScript" type="text/javascript" src="{% static 'js/script.js' %}"></script>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-	<style type="text/css" media="screen">
-			.mygrid-wrapper-div {
-				height: 480px;
-				overflow-y: scroll; 
-			}
-		</style>
+	<script type="text/javascript">
+		function is_valid_form() {
+			if (!$('chat_name').value)
+        		return false;
+		}
+	</script>
 </head>
 <body>
-	{% csrf_token %}
 	{% include 'topmenu.html' %}
 	<div class="container">
-		<table class="table table-striped table-hover">
-			<tr>
-				<td>Chat id</td>
-				<td>Chat name</td>
-			</tr>
+		<table id="chats-table" class="table table-striped table-hover">
+			<!--<tr>
+			<td>Chat id</td>
+			<td>Chat name</td>
+		</tr>
+		-->
 			{% for chat in chats %}
-			<tr style="cursor: pointer" onclick="document.location = 'chat/{{ chat.id }}'">
-				<td>{{ chat.id }}</td>
-				<td>{{ chat.chat_name }}</td>
-			</tr>
-			{% endfor %}
-		</table>
-	</div>
+		<tr class="tr-hover" onclick="document.location = 'chat/{{ chat.id }}'">
+			<form class="form" id="form-delete-chat" action="/create_chat/" method="post">
+				<fieldset>
+					{% csrf_token %}
+					<td>
+						<h4>{{ chat.chat_name }}</h4>
+					</td>
+					<input class="form-control" type="hidden" name="chat_id" id="chat_id" value="{{ chat.id }}" />
+					<td class="td-chats-button">
+						<button class="btn btn-default btn-block" onclick="delete_chat()">-</button>
+					</td>
+
+				</fieldset>
+			</form>
+		</tr>
+		{% endfor %}
+		<tr>
+			<form class="form" id="form-create-chat" action="/create_chat/" method="post">
+				<fieldset>
+					{% csrf_token %}
+					<td>
+						<input class="form-control" type="text" name="chat_name" id="chat_name" />
+					</td>
+					<td class="td-chats-button">
+						<button class="btn btn-default btn-block" onclick="return is_valid_form()">+</button>
+					</td>
+
+				</fieldset>
+			</form>
+		</tr>
+	</table>
+</div>
 </body>
 
 </html>
