@@ -10,8 +10,9 @@
 	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
 	<script type="text/javascript">
 		function is_valid_form() {
-			if (!$('chat_name').value)
+			if (!$('#chat_name')[0].value)
         		return false;
+        	return true;
 		}
 	</script>
 </head>
@@ -32,7 +33,7 @@
 					<td>
 						<h4>{{ chat.chat_name }}</h4>
 					</td>
-					<input class="form-control" type="hidden" name="chat_id" id="chat_id" value="{{ chat.id }}" />
+					<input class="form-control" type="hidden" name="chat_id" class="chat_id" value="{{ chat.id }}" />
 					<td class="td-chats-button">
 						<button class="btn btn-default btn-block" onclick="delete_chat()">-</button>
 					</td>

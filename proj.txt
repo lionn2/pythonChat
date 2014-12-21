@@ -72,4 +72,14 @@ create chat:
 	fields:
 		chat_name
 	response:
-		render to chat.html
+		redirect to chat.html
+
+delete chat:
+	method:
+		post
+	url:
+		/delete_chat/
+	fields:
+		chat_id
+	response:
+		redirect to index.html

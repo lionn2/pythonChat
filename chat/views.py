@@ -117,7 +117,7 @@ def create_chat(request):
 		start_time = timezone.now()
 		)
 	chat.save()
-	return render(request, 'chat.html')
+	return redirect('/')
 
 
 def upload(request):
