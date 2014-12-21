@@ -87,7 +87,7 @@ def post_message(request, chat_id):
 		
 		return HttpResponse(json.dumps(m.to_json()))
 	else:
-		return render('/')
+		return redirect('/')
 
 
 def chat(request, id):
@@ -114,10 +114,11 @@ def chat(request, id):
 					message.save()
 					chat.save()
 			else:
-				chat.guest = chat.guest + 1
+				chat = Chat.objects.get(id=id)
+				chat.guest += 1
 				chat.save()
 		except:
-			return render('/')
+			return redirect('/')
 		users = chat.users.all()
 		
 		_chat = {
@@ -128,8 +129,8 @@ def chat(request, id):
 		return render(request, 'chat.html', _chat)	
 	except Exception, e:
 		print e
-		return render('/')
-	
+		return redirect('/')
+
 
 def messages_from_id(request, chat_id):
 	id = request.POST['id']
