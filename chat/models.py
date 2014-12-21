@@ -34,7 +34,7 @@ class Message(models.Model):
 		}
 
 def query_to_json(data):
-	mess = []	
+	mess = []
 	for m in data:
 		mess.append(m.to_json())
  	return json.dumps(mess)

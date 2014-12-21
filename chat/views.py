@@ -87,7 +87,7 @@ def post_message(request, chat_id):
 		
 		return HttpResponse(json.dumps(m.to_json()))
 	else:
-		return HttpResponse("fail")
+		return render('/')
 
 
 def chat(request, id):
@@ -117,7 +117,7 @@ def chat(request, id):
 				chat.guest = chat.guest + 1
 				chat.save()
 		except:
-			return HttpResponse('fail')
+			return render('/')
 		users = chat.users.all()
 		
 		_chat = {
@@ -128,7 +128,7 @@ def chat(request, id):
 		return render(request, 'chat.html', _chat)	
 	except Exception, e:
 		print e
-		return HttpResponse("No chats")
+		return render('/')
 	
 
 def messages_from_id(request, chat_id):
@@ -163,7 +163,7 @@ def delete_chat(request):
 		chat.delete()
 		return HttpResponse('ok')
 	except:
-		return HttpResponse('fail')
+		return render('/')
 
 
 def upload(request):
