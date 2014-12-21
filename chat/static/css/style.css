@@ -6,6 +6,10 @@
 	height: 350px;
 	overflow-y: auto;
 }
+.panel-users {
+	height: 450px;
+	overflow-y: auto;
+}
 .chat-cell-username {
 	width: 100px;
 	max-width: 150px;

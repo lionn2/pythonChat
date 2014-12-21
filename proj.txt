@@ -85,3 +85,31 @@ delete chat:
 		id
 	response:
 		result: "OK"   **а ваще похуй шо**
+
+get users by id
+	method:
+		post
+	url:
+		/chat/chat_id/users
+	fields:
+		users_id: [id,id,id,...]
+	response:
+		[user, user, ...]
+		..........
+		user:
+			id
+			username
+			first_name
+			last_name
+			email
+
+
+
+chat users
+	method:
+		get
+	url:
+		/chat/chat_id/users
+	fields:
+	response:
+		[id,id,id,...]
