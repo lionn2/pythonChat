@@ -6,6 +6,7 @@ class Chat(models.Model):
 	chat_name = models.CharField(max_length = 100)
 	start_time = models.DateTimeField()
 	users = models.ManyToManyField(User)
+	guest = 0
 
 	def to_json(self):
 		return {
@@ -37,13 +38,13 @@ def query_to_json(data):
  	return json.dumps(mess)
 
 
-class Upload(models.Model):
-    #pic = models.ImageField("Image", upload_to="images/")    
-    upload_date=models.DateTimeField(auto_now_add =True)
+# class Upload(models.Model):
+#     #pic = models.ImageField("Image", upload_to="images/")    
+#     upload_date=models.DateTimeField(auto_now_add =True)
 
-from django.forms import ModelForm
+# from django.forms import ModelForm
 
-# FileUpload form class.
-class UploadForm(ModelForm):
-	class Meta:
-		model = Upload
+# # FileUpload form class.
+# class UploadForm(ModelForm):
+# 	class Meta:
+# 		model = Upload

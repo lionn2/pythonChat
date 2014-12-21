@@ -9,7 +9,7 @@ from django.utils import timezone
 from datetime import timedelta
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as inlog, logout as outlog
-from models import Chat, Message, query_to_json, UploadForm, Upload
+from models import Chat, Message, query_to_json#, UploadForm, Upload
 from django.core.urlresolvers import reverse
 
 def index(request):
@@ -91,6 +91,25 @@ def post_message(request, chat_id):
 
 def chat(request, id):
 	try:
+		chat = None
+		try:
+			if request.user.is_authenticated():
+				chat = Chat.objects.get(id=id)
+				_is = True
+				if chat.users.count() is not 0:
+					print 'All users' + str(chat.users.all())
+					for u in chat.users.all():
+						print'user' + str(u)
+						if u == request.user:
+							_is = False	
+							break
+				if _is:
+					chat.users.add(request.user)
+					chat.save()
+			else:
+				chat.guest = chat.guest + 1
+		except:
+			return HttpResponse('fail')
 		chat = {
 			"chat": Chat.objects.get(id=id),
 			"messages": Message.objects.filter(chat_id = id).all(),
@@ -131,7 +150,7 @@ def delete_chat(request):
 		messages = Message.objects.filter(chat_id = chat)
 		messages.delete()
 		chat.delete()
-		return render('/')
+		return HttpResponse('ok')
 	except:
 		return HttpResponse('fail')
 
