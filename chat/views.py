@@ -95,7 +95,6 @@ def chat(request, id):
 		chat = None
 		try:
 			if request.user.is_authenticated():
-				i = i + 1
 				chat = Chat.objects.get(id=id)
 				_is = True
 				if chat.users.count() is not 0:
@@ -103,8 +102,11 @@ def chat(request, id):
 						if u == request.user:
 							_is = False	
 							break
+				print _is
 				if _is:
+					print '111111111111111111111111111111'
 					chat.users.add(request.user)
+					print '222222222222222222222222222222'
 					message = Message(
 						chat_id = chat,
 						user_id = User.objects.get(username = request.user),
@@ -119,14 +121,16 @@ def chat(request, id):
 				chat.save()
 		except:
 			return HttpResponse('fail')
-
+		print '33333333333333333333333333333333333'
 		chat = {
 			"chat": Chat.objects.get(id=id),
 			"messages": Message.objects.filter(chat_id = id).all(),
 		}
-
+		print '444444444444444444444444444444444444'
+		print chat['chat'].users.all().count()
 		return render(request, 'chat.html', chat)	
 	except Exception, e:
+		print e
 		return HttpResponse("No chats")
 	
 
