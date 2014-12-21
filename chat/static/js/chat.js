@@ -32,22 +32,6 @@ function getToken () {
 }
 
 function formatDate (date) {
-	/*var addZero = function (number) {
-		var number = number.toString();
-		if (number.length == 1) {
-			number = '0' + number;
-		}
-		return number;
-	};
-	var year = addZero( date.getFullYear());
-	var month = addZero( date.getMonth() + 1 );
-	var date1 = addZero( date.getDate() );
-	var hour = addZero( date.getHours() + 2);
-	var minute = addZero( date.getMinutes() );
-	var second = addZero( date.getSeconds() );
-	var res =  year + '-' + month + '-' + date1 + ' ' + hour + ':' + minute + ':' + second;
-	return res;*/
-
 	return date.toISOString();
 }
 function formateDateChat(date) {
