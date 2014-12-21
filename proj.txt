@@ -103,8 +103,6 @@ get users by id
 			last_name
 			email
 
-
-
 chat users
 	method:
 		get
