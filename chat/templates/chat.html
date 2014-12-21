@@ -9,15 +9,12 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
 	<script language="JavaScript" type="text/javascript" src="{% static 'js/chat.js' %}"></script>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-	<style type="text/css" media="screen">
-			
-		</style>
+	<style type="text/css" media="screen"></style>
 </head>
 <body onload="startInterval()">
 	{% include 'topmenu.html' %}
 	<div class="container">
 		{% csrf_token %}
-		<div class="col-lg-2"></div>
 		<div class="col-lg-8">
 			<div class="form-group">
 				<div class="row">
@@ -30,10 +27,10 @@
 						<ul class="breadcrumb">
 							<li id="username" class="active">
 								{% if user.is_authenticated %}
-						  User: {{ user.username }}
-						  {% else %}
-						  User: Guest
-						  {% endif %}
+									User: {{ user.username }}
+								{% else %}
+									User: Guest
+								{% endif %}
 							</li>
 						</ul>
 					</div>
@@ -48,7 +45,15 @@
 					<input type="hidden" name="user_id" id="user_id" />
 				</form>
 				<button class="btn btn-primary" onclick="post_message()">Send</button>
-				<a href="/"><button class="btn btn-default">Exit</button></a>
+				<a href="/">
+					<button class="btn btn-default">Exit</button>
+				</a>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">Users</div>
+				<div class="panel-body panel-users">Panel content</div>
 			</div>
 		</div>
 	</div>
