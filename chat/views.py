@@ -69,26 +69,28 @@ def logout(request):
 
 
 def post_message(request, chat_id):
-	if request.user.is_authenticated():
-		message = request.POST['message']
-		user = request.user
-		post_time = timezone.now()
-		chat = Chat.objects.get(id = chat_id)
-		m = Message(user_id = user, 
-			chat_id = chat,
-			message = message,
-			post_time = post_time,
-			_type = 0
-			)
-		print message
-		
-		m.save()
-		print message
-		
-		return HttpResponse(json.dumps(m.to_json()))
+	if Chat.objects.filter(id = chat_id) is not None:
+		if request.user.is_authenticated():
+			message = request.POST['message']
+			user = request.user
+			post_time = timezone.now()
+			chat = Chat.objects.get(id = chat_id)
+			m = Message(user_id = user, 
+				chat_id = chat,
+				message = message,
+				post_time = post_time,
+				_type = 0
+				)
+			print message
+			
+			m.save()
+			print message
+			
+			return HttpResponse(json.dumps(m.to_json()))
+		else:
+			return HttpResponse("Error", status_code = 400)
 	else:
-		return redirect('/')
-
+		return HttpResponse("Error", status_code = 400)
 
 def chat(request, id):
 	try:
