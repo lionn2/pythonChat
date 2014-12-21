@@ -79,7 +79,11 @@ def post_message(request, chat_id):
 			message = message,
 			post_time = post_time
 			)
+		print message
+		
 		m.save()
+		print message
+		
 		return HttpResponse(json.dumps(m.to_json()))
 	else:
 		return HttpResponse("fail")
@@ -117,8 +121,20 @@ def create_chat(request):
 		start_time = timezone.now()
 		)
 	chat.save()
-	return redirect('/')
+	return redirect('chat', id=chat.id)
 	
+
+def delete_chat(request):
+	chat_id = request.POST['id']
+	try:
+		chat = Chat.objects.get(id = chat_id)
+		messages = Message.objects.filter(chat_id = chat)
+		messages.delete()
+		chat.delete()
+		return render('/')
+	except:
+		return HttpResponse('fail')
+
 
 def upload(request):
     if request.method=="POST":

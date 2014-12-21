@@ -22,6 +22,7 @@ except:
             'PASSWORD': 'letsykao',
             'HOST': '127.0.0.1',
             'PORT': '3306',
+            'OPTIONS': {'charset': 'utf8mb4'},
         }
     }
 
@@ -31,6 +32,8 @@ ALLOWED_HOSTS = []
 TIME_ZONE = 'Europe/Kiev'
 
 LANGUAGE_CODE = 'en-us'
+
+DEFAULT_CHARSET = 'utf-8'
 
 SITE_ID = 1
 

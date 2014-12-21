@@ -21,5 +21,6 @@ urlpatterns = patterns('',
 	url(r'^chat/(?P<chat_id>\d+)/post_message/$', 'chat.views.post_message', name='post_message'),
 	url(r'^chat/(?P<chat_id>\d+)/messages_from_id/$', 'chat.views.messages_from_id', name='messages_from_id'),
 	url(r'^create_chat/$', 'chat.views.create_chat', name='create_chat'),
+	url(r'^delete_chat/$', 'chat.views.delete_chat', name='delete_chat'),
 	url(r'^upload/$', 'chat.views.upload', name='upload'),
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

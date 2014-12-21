@@ -38,12 +38,12 @@ def query_to_json(data):
 
 
 class Upload(models.Model):
-    pic = models.ImageField("Image", upload_to="images/")    
+    #pic = models.ImageField("Image", upload_to="images/")    
     upload_date=models.DateTimeField(auto_now_add =True)
 
 from django.forms import ModelForm
 
 # FileUpload form class.
 class UploadForm(ModelForm):
-    class Meta:
-        model = Upload
+	class Meta:
+		model = Upload
