@@ -122,13 +122,16 @@ def chat(request, id):
 		except:
 			return HttpResponse('fail')
 		print '33333333333333333333333333333333333'
-		chat = {
+		users = chat.users.all()
+		
+		_chat = {
 			"chat": Chat.objects.get(id=id),
-			"messages": Message.objects.filter(chat_id = id).all(),
+			"messages": Message.objects.filter(chat_id = id),
 		}
-		print '444444444444444444444444444444444444'
-		print chat['chat'].users.all().count()
-		return render(request, 'chat.html', chat)	
+		chat = Chat.objects.get(id = id)
+		for u in users:
+			print u
+		return render(request, 'chat.html', _chat)	
 	except Exception, e:
 		print e
 		return HttpResponse("No chats")

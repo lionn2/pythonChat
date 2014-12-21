@@ -55,8 +55,8 @@
 				<div class="panel-heading">Users</div>
 				<div class="panel-body panel-users">
 					<div id="chat-users" style="display:none">
-						{% for user in chat.users %}
-							user.username<br />
+						{% for user in chat.users.all %}
+							{{ user.username }}<br />
 						{% endfor %}
 					</div>
 				</div>
