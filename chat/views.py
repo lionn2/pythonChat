@@ -77,7 +77,8 @@ def post_message(request, chat_id):
 		m = Message(user_id = user, 
 			chat_id = chat,
 			message = message,
-			post_time = post_time
+			post_time = post_time,
+			_type = 0
 			)
 		print message
 		
@@ -105,11 +106,21 @@ def chat(request, id):
 							break
 				if _is:
 					chat.users.add(request.user)
+					message = Message(
+						chat_id = id,
+						user_id = request.user,
+						message = request.user + " entered the chat",
+						post_time = timezone.now(),
+						_type = 1,
+						)
+					message.save()
 					chat.save()
 			else:
 				chat.guest = chat.guest + 1
+				chat.save()
 		except:
 			return HttpResponse('fail')
+
 		chat = {
 			"chat": Chat.objects.get(id=id),
 			"messages": Message.objects.filter(chat_id = id).all(),

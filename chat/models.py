@@ -6,7 +6,7 @@ class Chat(models.Model):
 	chat_name = models.CharField(max_length = 100)
 	start_time = models.DateTimeField()
 	users = models.ManyToManyField(User)
-	guest = 0
+	guest = models.IntegerField()
 
 	def to_json(self):
 		return {
@@ -21,6 +21,7 @@ class Message(models.Model):
 	user_id = models.ForeignKey(User)
 	message = models.TextField()
 	post_time = models.DateTimeField()
+	_type = models.IntegerField()
 
 	def to_json(self):
 		return {
@@ -29,6 +30,7 @@ class Message(models.Model):
 			"user": self.user_id.username,
 			"message": self.message,
 			"post_time": str(self.post_time),
+			"type": self._type,
 		}
 
 def query_to_json(data):

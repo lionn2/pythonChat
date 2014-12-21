@@ -94,3 +94,7 @@ function textAreaKey (el, event) {
 		post_message(); 
 	}
 }
+
+function sortUsers () {
+	
+}
