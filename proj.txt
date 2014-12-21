@@ -86,30 +86,18 @@ delete chat:
 	response:
 		result: "OK"   **а ваще похуй шо**
 
-get users by id
+
+add user to chat:
 	method:
-		post
+		add to chat functions
 	url:
-		/chat/chat_id/users
+		/chat/<chat_id>/
 	fields:
-		users_id: [id,id,id,...]
-	response:
-		[user, user, ...]
-		..........
-		user:
-			id
-			username
-			first_name
-			last_name
-			email
 
-
-
-chat users
-	method:
-		get
-	url:
-		/chat/chat_id/users
-	fields:
-	response:
-		[id,id,id,...]
+	reponse:
+		type:
+			0 - simple message
+			1 - add to chat new user
+			2 - delete from chat user
+		chat 	 - one Chat
+		messages - query_set of messages
