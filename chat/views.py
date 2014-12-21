@@ -118,7 +118,7 @@ def create_chat(request):
 		)
 	chat.save()
 	return redirect('/')
-
+	
 
 def upload(request):
     if request.method=="POST":

@@ -27,7 +27,7 @@
 		-->
 			{% for chat in chats %}
 		<tr class="tr-hover" onclick="document.location = 'chat/{{ chat.id }}'">
-			<form class="form" id="form-delete-chat" action="/create_chat/" method="post">
+			<form class="form" id="form-delete-chat" action="/delete_chat/" method="post">
 				<fieldset>
 					{% csrf_token %}
 					<td>
@@ -35,9 +35,8 @@
 					</td>
 					<input class="form-control" type="hidden" name="chat_id" class="chat_id" value="{{ chat.id }}" />
 					<td class="td-chats-button">
-						<button class="btn btn-default btn-block" onclick="delete_chat()">-</button>
+						<button class="btn btn-primary btn-block" onclick="delete_chat()">Delete</button>
 					</td>
-
 				</fieldset>
 			</form>
 		</tr>
@@ -50,7 +49,7 @@
 						<input class="form-control" type="text" name="chat_name" id="chat_name" />
 					</td>
 					<td class="td-chats-button">
-						<button class="btn btn-default btn-block" onclick="return is_valid_form()">+</button>
+						<button class="btn btn-default btn-block" onclick="return is_valid_form()">Add</button>
 					</td>
 
 				</fieldset>
