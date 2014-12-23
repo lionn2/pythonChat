@@ -22,46 +22,52 @@ def registration(request):
 	return render(request, 'registration.html')
 
 def create_user(request):
-	username = request.POST['username']
-	password = request.POST['password']
-	user = User.objects.create_user(
-		username = username,
-		email = request.POST['email'],
-		password = password,
-		first_name = request.POST['first_name'],
-		last_name = request.POST['last_name'],
-		)
+	try:	
+		username = request.POST['username']
+		password = request.POST['password']
+		user = User.objects.create_user(
+			username = username,
+			email = request.POST['email'],
+			password = password,
+			first_name = request.POST['first_name'],
+			last_name = request.POST['last_name'],
+			)
 
-	user.save()
+		user.save()
 
-	user = authenticate(username = username, password = password)
-	
-	print user
+		user = authenticate(username = username, password = password)
+		
+		print user
 
-	if user is not None:
-		if user.is_active:
-			inlog(request, user)
-			return redirect('/')
+		if user is not None:
+			if user.is_active:
+				inlog(request, user)
+				return redirect('/')
+			else:
+				print "disable account"
+				return HttpResponse("disable account")
 		else:
-			print "disable account"
-			return HttpResponse("disable account")
-	else:
-		print "invalid account"
-		return HttpResponse("invalid account")
-
+			print "invalid account"
+			return HttpResponse("invalid account")
+	except:
+		return HttpResponse(status=401)
 
 def login(request):
-	user = authenticate(username = request.POST['username'], password = request.POST['password'])
-	if user is not None:
-		if user.is_active:
-			inlog(request, user)
-			return redirect('/')
+	try:
+		user = authenticate(username = request.POST['username'], password = request.POST['password'])
+		if user is not None:
+			if user.is_active:
+				inlog(request, user)
+				return redirect('/')
+			else:
+				print "disable account"
+				return HttpResponse("disable account")
 		else:
-			print "disable account"
-			return HttpResponse("disable account")
-	else:
-		print "invalid account"
-		return HttpResponse("invalid account")
+			print "invalid account"
+			return redirect('/', status = 401)
+	except:
+		return redirect('/', status = 400)
+
 
 def logout(request):
 	outlog(request)
@@ -88,9 +94,9 @@ def post_message(request, chat_id):
 			
 			return HttpResponse(json.dumps(m.to_json()))
 		else:
-			return HttpResponse("Error", status_code = 400)
+			return HttpResponse("Error", status = 400)
 	else:
-		return HttpResponse("Error", status_code = 400)
+		return HttpResponse("Error", status  = 400)
 
 def chat(request, id):
 	try:
@@ -158,19 +164,21 @@ def create_chat(request):
 	
 
 def delete_chat(request):
-	chat_id = request.POST['id']
-	try:
-		chat = Chat.objects.get(id = chat_id)
-		messages = Message.objects.filter(chat_id = chat)
-		messages.delete()
-		chat.delete()
-		return HttpResponse('ok')
-	except:
-		return render('/')
-
+	if request.user.is_authenticated():
+		chat_id = request.POST['id']
+		try:
+			chat = Chat.objects.get(id = chat_id)
+			messages = Message.objects.filter(chat_id = chat)
+			messages.delete()
+			chat.delete()
+			return HttpResponse('ok')
+		except:
+			return render('/')
+	else:
+		return HttpResponse("Error", status = 401)
 
 def delete_user_from_chat(request):
-	username = request.POST['username']
+	username = request.user
 	chat_id = request.POST['chat_id']
 	try:
 		chat = Chat.objects.get(id=chat_id)
@@ -184,7 +192,7 @@ def delete_user_from_chat(request):
 		)
 		return HttpResponse(json.dumps(mess))
 	except Exception, e:
-		return HttpResponse("Error", status_code = 400)
+		return HttpResponse("Error", status = 400)
 
 def upload(request):
     if request.method=="POST":
