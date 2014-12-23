@@ -48,8 +48,11 @@
 				<a href="/">
 					<button class="btn btn-default">Exit</button>
 				</a>
-
-				<button onclick="LeaveChat({{ chat.id }}">Leave Chat</button>
+				<form id="delChatForm" action="/delete_user_from_chat/" method="post">
+					{% csrf_token %}
+					<input type="hidden" name="chat_id" value="{{ chat.id }}">
+					<button class="btn btn-default">Leave Chat</button>
+				</form>
 			</div>
 		</div>
 		<div class="col-lg-4">

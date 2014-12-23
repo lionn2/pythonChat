@@ -110,6 +110,5 @@ delete user from chat:
 		/chat/delete_user_from_chat/
 	fileds:
 		chat_id
-		username
 	response:
 		Message
