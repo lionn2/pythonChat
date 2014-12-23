@@ -204,13 +204,18 @@ def delete_user_from_chat(request):
 		return HttpResponse("Error", status = 400)
 
 def upload_file(request):
-	if request.method == 'POST':
-		form = UploadFileForm(request.POST, request.FILES)
-		if form.is_valid():
-			handle_uploaded_file(request.FILES['file'])
-			return HttpResponse('ok')
-	else:
-		form = UploadFileForm()
+	chat_id = request.POST['chat_id']
+	form = UploadFileForm(request.POST, request.FILES)
+	if form.is_valid():
+		handle_uploaded_file(request.FILES['file'])
+		message = Message(
+				chat_id = Chat.objects.get(id = chat_id),
+				user_id = request.user,
+				message = req.FILES['filename'],
+				_type = 3,
+				post_time = timezone.now(),
+			)
+		return HttpResponse('ok')
 	return HttpResponse(status = 404)
 
 def handle_uploaded_file(f):

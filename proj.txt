@@ -132,3 +132,14 @@ chech username:
 	response:
 		error 400 - all bad
 		ok - all good
+
+upload file:
+	method:
+		post
+	url:
+		/upload_file/
+	fields:
+		chat_id
+	response:
+		'ok' - all good
+		404  - some trouble

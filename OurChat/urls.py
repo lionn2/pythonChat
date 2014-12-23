@@ -25,4 +25,5 @@ urlpatterns = patterns('',
 	url(r'^delete_chat/$', 'chat.views.delete_chat', name='delete_chat'),
 	url(r'^upload/$', 'chat.views.upload', name='upload'),
 	url(r'^delete_user_from_chat/', 'chat.views.delete_user_from_chat', name='delete_user_from_chat'),
+	url(r'^upload_file/', 'chat.views.upload_file', name='upload_file'),
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
