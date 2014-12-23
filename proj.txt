@@ -26,6 +26,9 @@ Register:
 		last_name
 	response:
 		redirect to /
+		error 401 - bad
+		disable account
+		invalid account
 
 sing in:
 	method:
@@ -37,7 +40,10 @@ sing in:
 		password
 	response:
 		redirect to /
-		
+		disable account
+		status 401
+
+
 post message:
 	method:
 		post
@@ -51,6 +57,9 @@ post message:
 		message
 		id
 		chat_id
+
+		redirect to /
+		error 400
 
 messages by id:
 	method:
@@ -112,3 +121,14 @@ delete user from chat:
 		chat_id
 	response:
 		Message
+
+chech username:
+	method:
+		post
+	url:
+		/check_username/
+	fields:
+		username
+	response:
+		error 400 - all bad
+		ok - all good
