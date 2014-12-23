@@ -11,7 +11,7 @@
 	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
 	<style type="text/css" media="screen"></style>
 </head>
-<body onload="startInterval()">
+<body onload="main()">
 	{% include 'topmenu.html' %}
 	<div class="container">
 		{% csrf_token %}
@@ -48,6 +48,11 @@
 				<a href="/">
 					<button class="btn btn-default">Exit</button>
 				</a>
+				<form id="delChatForm" action="/delete_user_from_chat/" method="post">
+					{% csrf_token %}
+					<input type="hidden" name="chat_id" value="{{ chat.id }}">
+					<button class="btn btn-default">Leave Chat</button>
+				</form>
 			</div>
 		</div>
 		<div class="col-lg-4">
@@ -56,11 +61,11 @@
 				<div class="panel-heading">Users</div>
 
 				<div class="list-group" id="chat-users">
-					<!--{% for user in chat.users.all %}
-					<a href="/user/{{ user.id }}/" class="list-group-item">
+					{% for user in chat.users.all %}
+					<a href="/user/{{ user }}/" class="list-group-item">
 						{{ user.username }}
 					</a>
-					{% endfor %}-->
+					{% endfor %}
 				</div>
 			</div>
 		</div>

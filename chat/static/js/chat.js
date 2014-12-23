@@ -1,5 +1,11 @@
 var interval;
 var id = 0;
+var users = [];
+
+function main () {
+	startInterval();
+	sortUsers();
+}
 
 function startInterval () {
 	setTimeout(function () {
@@ -101,16 +107,31 @@ function textAreaKey (el, event) {
 		post_message(); 
 	}
 }
-
 function sortUsers () {
-	//todo
+	var userPanel = $('#chat-users').get(0);
+	var child_arr = userPanel.childNodes;
+	console.log(child_arr);
+
+	for (var i = 0; i < child_arr.length; i++) {
+		if (child_arr[i].tagName == 'A') {
+			users.push(child_arr[i]);
+		};
+	}
+	console.log(users);
 }
 
 function addUser (user) {
-	
+	for (var i = 0; i < users.length; i++) 
+		if (users[i].innerText == user)
+			return;
 	$('#chat-users').append('<a href=\'#\' class=\'list-group-item\'>' + user + '</a>\n');
 }
 
 function delUser (user) {
-	//todo
+	for (var i = 0; i < users.length; i++) {
+		if (users[i].innerText == user) {
+			users[i].parentNode.removeChild( users[i] );
+			users.splice(i, 1);
+		}
+	};
 }
