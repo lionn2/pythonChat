@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 import json
 import datetime
@@ -9,7 +9,7 @@ from django.utils import timezone
 from datetime import timedelta
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as inlog, logout as outlog
-from models import Chat, Message, query_to_json#, UploadForm, Upload
+from models import Chat, Message, query_to_json, UploadFileForm
 from django.core.urlresolvers import reverse
 
 def index(request):
@@ -20,6 +20,14 @@ def index(request):
 
 def registration(request):
 	return render(request, 'registration.html')
+
+def check_username(request):
+	try:
+		username = request.POST['username']
+		user = User.objects.get(username = username)
+		return HttpResponse('error', status=400)
+	except:
+		return HttpResponse('ok')
 
 def create_user(request):
 	try:	
@@ -195,13 +203,17 @@ def delete_user_from_chat(request):
 	except Exception, e:
 		return HttpResponse("Error", status = 400)
 
-def upload(request):
-    if request.method=="POST":
-        img = UploadForm(request.POST, request.FILES)       
-        if img.is_valid():
-            img.save()  
-            return HttpResponseRedirect(reverse('upload'))
-    else:
-        img=UploadForm()
-    images=Upload.objects.all()
-    return render(request,'chat.html',{'form':img,'images':images})
+def upload_file(request):
+	if request.method == 'POST':
+		form = UploadFileForm(request.POST, request.FILES)
+		if form.is_valid():
+			handle_uploaded_file(request.FILES['file'])
+			return HttpResponse('ok')
+	else:
+		form = UploadFileForm()
+	return HttpResponse(status = 404)
+
+def handle_uploaded_file(f):
+	with open('buffer.txt', 'wb+') as destination:
+		for chunk in f.chunks():
+			destination.write(chunk)

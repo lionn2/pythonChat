@@ -40,13 +40,8 @@ def query_to_json(data):
  	return json.dumps(mess)
 
 
-# class Upload(models.Model):
-#     #pic = models.ImageField("Image", upload_to="images/")    
-#     upload_date=models.DateTimeField(auto_now_add =True)
+from django import forms
 
-# from django.forms import ModelForm
-
-# # FileUpload form class.
-# class UploadForm(ModelForm):
-# 	class Meta:
-# 		model = Upload
+class UploadFileForm(forms.Form):
+    title = forms.CharField(max_length=50)
+    file = forms.FileField()
