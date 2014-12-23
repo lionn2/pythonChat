@@ -101,3 +101,15 @@ add user to chat:
 			2 - delete from chat user
 		chat 	 - one Chat
 		messages - query_set of messages
+
+
+delete user from chat:
+	method:
+		post
+	url:
+		/chat/delete_user_from_chat/
+	fileds:
+		chat_id
+		username
+	response:
+		Message
