@@ -135,3 +135,15 @@ function delUser (user) {
 		}
 	};
 }
+
+function leaveChat (chat_id) {
+	$.ajax({
+       	type: "POST",
+       	url: '/delete_user_from_chat/',
+       	data: getToken() + "&chat_id=" + chat_id,
+       	success: function()
+       	{
+       		window.location = '/';
+        }
+    });
+}
