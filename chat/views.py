@@ -169,6 +169,23 @@ def delete_chat(request):
 		return render('/')
 
 
+def delete_user_from_chat(request):
+	username = request.POST['username']
+	chat_id = request.POST['chat_id']
+	try:
+		chat = Chat.objects.get(id=chat_id)
+		chat.users.remove(username)
+		mess = Message( 
+			chat_id = chat,
+			user_id = request.user,
+			message = str(request.user) + " delete from chat",
+			post_time = timezone.now(),
+			_type = 2
+		)
+		return HttpResponse(json.dumps(mess))
+	except Exception, e:
+		return HttpResponse("Error", status_code = 400)
+
 def upload(request):
     if request.method=="POST":
         img = UploadForm(request.POST, request.FILES)       
