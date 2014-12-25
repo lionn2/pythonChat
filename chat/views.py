@@ -13,14 +13,6 @@ from models import Chat, Message, query_to_json, UploadFileForm
 from django.core.urlresolvers import reverse
 from django.http import JsonResponse
 
-
-def example(request):
-	messages = Message.objects.all()
-	response = []
-	for m in messages:
-		response += JsonResponse(m)
-	return response
-
 def index(request):
 	result = {
 		"chats": Chat.objects.all()
