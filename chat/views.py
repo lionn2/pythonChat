@@ -11,6 +11,15 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as inlog, logout as outlog
 from models import Chat, Message, query_to_json, UploadFileForm
 from django.core.urlresolvers import reverse
+from django.http import JsonResponse
+
+
+def example(request):
+	messages = Message.objects.all()
+	response = []
+	for m in messages:
+		response += JsonResponse(m)
+	return response
 
 def index(request):
 	result = {
