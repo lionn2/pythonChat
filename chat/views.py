@@ -241,8 +241,9 @@ def add_file(request, chat_id):
 	form = DocumentForm(request.POST, request.FILES)
 	if request.method == 'POST':
 		if form.is_valid():
+			chat = Chat.objects.get(id = chat_id)
 			message = Message(
-				chat_id = chat_id,
+				chat_id = chat,
 				user_id = request.user,
 				message = str(request.FILES['docfile']),
 				post_time = timezone.now(),
