@@ -241,22 +241,22 @@ def add_file(request, chat_id):
 	if request.method == 'POST':
 		form = DocumentForm(request.POST, request.FILES)
 		if form.is_valid():
-			print '1111111111111'
-			chat = Chat.objects.get(id = chat_id)
-			newdoc = Document(docfile = request.FILES['docfile'])
-			newdoc.save()
-			print newdoc.docfile
-			message = Message(
-				chat_id = chat,
-				user_id = request.user,
-				message = newdoc.docfile,
-				post_time = timezone.now(),
-				_type = 3,
-				)
-			message.save()
-			
-			return HttpResponse('ok')
-			#return render(request, 'chat.html')
+			try:
+				chat = Chat.objects.get(id = chat_id)
+				newdoc = Document(docfile = request.FILES['docfile'])
+				newdoc.save()
+				text = newdoc.docfile
+				message = Message(
+					chat_id = chat,
+					user_id = request.user,
+					message = text,
+					post_time = timezone.now(),
+					_type = 3,
+					)
+				message.save()
+				return HttpResponse(request.FILES['docfile'].name)
+			except:
+				return HttpResponse('bad')
 	else:
 		form = DocumentForm() # A empty, unbound form
 		return render(request, 'add_file.html', {'form': form } )
