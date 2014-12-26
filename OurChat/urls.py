@@ -9,6 +9,7 @@ from chat import views
 urlpatterns = patterns('',
 	url(r'^admin/', include(admin.site.urls)),
 	url(r'^$', 'chat.views.index', name='index'),
+	url(r'^user_chats/', 'chat.views.user_chats', name='user_chats'),
 	url(r'^create_user/$', 'chat.views.create_user', name='create_user'),
 	url(r'^check_username/$', 'chat.views.check_username', name='check_username'),
 	url(r'^login/$', 'chat.views.login', name='login'),

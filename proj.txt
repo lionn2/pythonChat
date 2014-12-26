@@ -143,3 +143,12 @@ upload file:
 	response:
 		'ok' - all good
 		404  - some trouble
+
+user_chat:
+	method:
+		get
+	url:
+		/user_chats/<user>/
+	response:
+		index.html + chats - good
+		redirect to '/' - bad

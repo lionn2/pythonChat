@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, render_to_response
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden
 import json
 import datetime
 from django.core import serializers
@@ -12,6 +12,7 @@ from django.contrib.auth import authenticate, login as inlog, logout as outlog
 from models import Chat, Message, query_to_json, UploadFileForm
 from django.core.urlresolvers import reverse
 from django.http import JsonResponse
+from itertools import chain
 
 def index(request):
 	result = {
@@ -29,6 +30,25 @@ def check_username(request):
 		return HttpResponse('error', status=400)
 	except:
 		return HttpResponse('ok')
+
+
+def user_chats(request):
+	if (request.user.is_authenticated()):
+		chats = Chat.objects.all()
+		user_chat = []
+		is_user = False
+		for ch in chats:
+			users = ch.users.all()
+			for us in users:
+				if str(us) == str(request.user):
+					if user_chat == []:
+						user_chat.append(ch)
+					else:
+						user_chat.append(ch)
+					break
+		return render(request, 'index.html', {'chats': user_chat } )
+	else:
+		return redirect('/')
 
 def create_user(request):
 	try:	
@@ -69,13 +89,14 @@ def login(request):
 				inlog(request, user)
 				return redirect('/')
 			else:
-				print "disable account"
 				return HttpResponse("disable account")
 		else:
 			print "invalid account"
 			return redirect('/', status = 401)
 	except:
-		return redirect('/', status = 400)
+		return HttpResponse('bad')
+		#return HttpResponseForbidden()
+		#return redirect('/', status = 400)
 
 
 def logout(request):
