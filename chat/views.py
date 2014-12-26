@@ -14,6 +14,17 @@ from django.core.urlresolvers import reverse
 from django.http import JsonResponse
 from itertools import chain
 
+#for 
+from django.template import RequestContext
+from django.core.urlresolvers import reverse
+
+from myproject.myapp.models import Document
+from myproject.myapp.forms import DocumentForm
+
+
+
+
+
 def index(request):
 	result = {
 		"chats": Chat.objects.all()
@@ -162,6 +173,7 @@ def chat(request, id):
 		_chat = {
 			"chat": Chat.objects.get(id=id),
 			"messages": Message.objects.filter(chat_id = id),
+			"form": DocumentForm(),
 		}
 		chat = Chat.objects.get(id = id)
 		return render(request, 'chat.html', _chat)	
@@ -226,31 +238,25 @@ def delete_user_from_chat(request):
 		return HttpResponse("Error", status = 400)
 
 
-from django.template import RequestContext
-from django.core.urlresolvers import reverse
-
-from myproject.myapp.models import Document
-from myproject.myapp.forms import DocumentForm
-
-
-def add_files(request):
-	chat = request.POST['chat_id']
+def add_file(request):
 	form = DocumentForm(request.POST, request.FILES)
-	if form.is_valid():
-		message = Message(
-			chat_id = chat_id,
-			user_id = request.user,
-			message = str(request.FILES['docfile']),
-			post_time = timezone.now(),
-			_type = 3,
-			)
-		message.save()
-		#newdoc = Document(docfile = request.FILES['docfile'])
-		#newdoc.save()
-		return HttpResponseRedirect(reverse('chat'))
-	#else:
-    #    form = DocumentForm() # A empty, unbound form
-
+	if request.method == 'POST'
+		if form.is_valid():
+			chat = request.POST['chat_id']
+			message = Message(
+				chat_id = chat_id,
+				user_id = request.user,
+				message = str(request.FILES['docfile']),
+				post_time = timezone.now(),
+				_type = 3,
+				)
+			message.save()
+			#newdoc = Document(docfile = request.FILES['docfile'])
+			#newdoc.save()
+			return request(reverse('chat'))
+	else:
+		form = DocumentForm() # A empty, unbound form
+		return render_to_response('add_file.html', {'form': form } )
     # Load documents for the list page
     #documents = Document.objects.all()
 
