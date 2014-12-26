@@ -237,11 +237,10 @@ def delete_user_from_chat(request):
 		return HttpResponse("Error", status = 400)
 
 
-def add_file(request):
+def add_file(request, chat_id):
 	form = DocumentForm(request.POST, request.FILES)
 	if request.method == 'POST':
 		if form.is_valid():
-			chat = request.POST['chat_id']
 			message = Message(
 				chat_id = chat_id,
 				user_id = request.user,
@@ -255,7 +254,7 @@ def add_file(request):
 			return request(reverse('chat'))
 	else:
 		form = DocumentForm() # A empty, unbound form
-		return render_to_response('add_file.html', {'form': form } )
+		return render(request, 'add_file.html', {'form': form } )
     # Load documents for the list page
     #documents = Document.objects.all()
 

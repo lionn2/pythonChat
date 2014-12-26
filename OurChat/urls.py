@@ -21,5 +21,5 @@ urlpatterns = patterns('',
 	url(r'^create_chat/$', 'chat.views.create_chat', name='create_chat'),
 	url(r'^delete_chat/$', 'chat.views.delete_chat', name='delete_chat'),
 	url(r'^delete_user_from_chat/', 'chat.views.delete_user_from_chat', name='delete_user_from_chat'),
-	url(r'^add_file/$', 'chat.views.add_file', name='add_file'),
+	url(r'^chat/(?P<chat_id>\d+)/add_file/$', 'chat.views.add_file', name='add_file'),
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
