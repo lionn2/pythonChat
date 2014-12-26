@@ -9,7 +9,7 @@ from django.utils import timezone
 from datetime import timedelta
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as inlog, logout as outlog
-from models import Chat, Message, query_to_json, UploadFileForm
+from models import Chat, Message, query_to_json, Document
 from django.core.urlresolvers import reverse
 from django.http import JsonResponse
 from itertools import chain
@@ -18,8 +18,7 @@ from itertools import chain
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 
-from myproject.myapp.models import Document
-from myproject.myapp.forms import DocumentForm
+from forms import DocumentForm
 
 
 
@@ -240,7 +239,7 @@ def delete_user_from_chat(request):
 
 def add_file(request):
 	form = DocumentForm(request.POST, request.FILES)
-	if request.method == 'POST'
+	if request.method == 'POST':
 		if form.is_valid():
 			chat = request.POST['chat_id']
 			message = Message(
@@ -262,4 +261,3 @@ def add_file(request):
 
     # Render list page with the documents and the form
     #return render_to_response('list_files.html',{'documents': documents, 'form': form}, context_instance=RequestContext(request)
-    )
