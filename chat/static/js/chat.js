@@ -2,11 +2,12 @@ var interval;
 var id = 0;
 var users = [];
 var me;
-
-function main (user) {
+var chat_id;
+function main (user, id) {
 	startInterval();
 	sortUsers();
 	me = user;
+	chat_id = id;
 }
 
 function startInterval () {
@@ -158,7 +159,7 @@ function delUser (user) {
 	};
 }
 
-function leaveChat (chat_id) {
+function leaveChat () {
 	$.ajax({
        	type: "POST",
        	url: '/delete_user_from_chat/',
@@ -168,4 +169,24 @@ function leaveChat (chat_id) {
        		window.location = '/';
         }
     });
+}
+
+function addFile () {
+	$('#id_docfile').change(function () {
+		//if(inputFile.value != '') {
+			/*$.ajax({
+				type: "POST",
+				url: '/add_file/',
+				data: $("#upload-form").serialize() + '&chat_id=' + chat_id,
+				success: function(messages)
+				{
+					messages = jQuery.parseJSON(messages);
+					//addMessagesToTable(messages);
+					textArea.value = "";
+				}
+			});*/
+		//}
+		$('#upload-form').submit();
+	});
+	$('#id_ocfile').click();
 }
