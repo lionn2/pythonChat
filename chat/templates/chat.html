@@ -11,9 +11,10 @@
 	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
 	<style type="text/css" media="screen"></style>
 </head>
-<body onload="main()">
+<body onload="main('{{ user.username }}')">
 	{% include 'topmenu.html' %}
 	<div class="container">
+		<div id="alert-placeholder"></div>
 		{% csrf_token %}
 		<div class="col-lg-8">
 			<div class="form-group">
@@ -39,16 +40,18 @@
 				<div class="mygrid-wrapper-div">
 					<table id="chatTable" class="table"></table>
 				</div>
+				{% if user.is_authenticated %}
 				<form id="post_message">
 					{% csrf_token %}
 					<textarea class="form-control" rows="3" id="textArea" name="message" onkeypress="textAreaKey(this, event)"></textarea>
 					<input type="hidden" name="user_id" id="user_id" />
 				</form>
 				<button class="btn btn-primary" onclick="post_message()">Send</button>
+				<button class="btn btn-default" onclick="leaveChat({{ chat.id }})">Leave Chat</button>
+				{% endif %}
 				<a href="/">
 					<button class="btn btn-default">Exit</button>
 				</a>
-				<button class="btn btn-default" onclick="leaveChat({{ chat.id }})">Leave Chat</button>
 			</div>
 		</div>
 		<div class="col-lg-4">
@@ -58,9 +61,7 @@
 
 				<div class="list-group" id="chat-users">
 					{% for user in chat.users.all %}
-					<a href="/user/{{ user }}/" class="list-group-item">
-						{{ user.username }}
-					</a>
+					<a href="/user/{{ user }}/" class="list-group-item">{{ user.username }}</a>
 					{% endfor %}
 				</div>
 			</div>

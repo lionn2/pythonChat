@@ -1,10 +1,12 @@
 var interval;
 var id = 0;
 var users = [];
+var me;
 
-function main () {
+function main (user) {
 	startInterval();
 	sortUsers();
+	me = user;
 }
 
 function startInterval () {
@@ -20,15 +22,26 @@ function post_message () {
 		return;
 	}
 	$.ajax({
-           type: "POST",
-           url: window.location.href + 'post_message/',
-           data: $("#post_message").serialize(), // serializes the form's elements.
-           success: function(messages)
-           {
-           		messages = jQuery.parseJSON(messages);
-           		//addMessagesToTable(messages);
-                textArea.value = "";
-           }
+			type: "POST",
+			url: window.location.href + 'post_message/',
+			data: $("#post_message").serialize(), // serializes the form's elements.
+			success: function(messages)
+			{
+				messages = jQuery.parseJSON(messages);
+				//addMessagesToTable(messages);
+				textArea.value = "";
+			},
+			statusCode: {
+				400: function () {
+					console.log( $('#alert-placeholder').get(0) );
+					$('#alert-placeholder').get(0).innerHTML = '<div class=\"alert alert-dismissable alert-danger\">' + 
+					'<button type=\"button\" class=\"close\" data-dismiss=\"alert\">×</button>' + 
+					'You can\'t post massage</div>';
+					$('.close').click(function () {
+						$('#alert-placeholder').get(0).innerHTML = '';
+					});
+				}
+			}
          });
 
 }
@@ -91,10 +104,16 @@ function addMessagesToTable (messages) {
 			addUser(m.user);
 		} else if(m.type == 2) {
 			delUser(m.user);
-		} else {
+		} else if(m.type == 0 || m.type == 3){
 			cell1.innerHTML = m.user;
 		}
-		cell2.innerHTML = m.message.split('\r\n').join('<br />');
+
+		if(m.type == 3) {
+			cell2.innerHTML = '<a>' + m.message + '</a>';
+		} else {
+			cell2.innerHTML = m.message.split('\r\n').join('<br />');
+		}
+
 		cell3.innerHTML = formateDateChat(m.post_time);
 	};
 }
@@ -128,6 +147,9 @@ function addUser (user) {
 }
 
 function delUser (user) {
+	/*if(user == me) {
+		window.location = '/';
+	}*/
 	for (var i = 0; i < users.length; i++) {
 		if (users[i].innerText == user) {
 			users[i].parentNode.removeChild( users[i] );

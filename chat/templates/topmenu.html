@@ -5,7 +5,11 @@
 					<li>
 						<a href="/">Home</a>
 					</li>
-
+					{% if user.is_authenticated %}	
+					<li>
+						<a href="/user_chats/{{ user.username }}/">My chats</a>
+					</li>
+					{% endif %}
 				</ul>
 				{% if user.is_authenticated %}
 				<div class="navbar-form navbar-right" role="search">
