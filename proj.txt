@@ -161,4 +161,4 @@ add file:
 	fields:
 		POST['chat_id']
 		FILES['docfile']
-		
+		media/documents/2013/01/30/example01.png - example of file path

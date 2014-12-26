@@ -240,21 +240,23 @@ def delete_user_from_chat(request):
 def add_file(request, chat_id):
 	if request.method == 'POST':
 		form = DocumentForm(request.POST, request.FILES)
-		print form.is_valid()
 		if form.is_valid():
 			print '1111111111111'
 			chat = Chat.objects.get(id = chat_id)
+			newdoc = Document(docfile = request.FILES['docfile'])
+			newdoc.save()
+			print newdoc.docfile
 			message = Message(
 				chat_id = chat,
 				user_id = request.user,
-				message = str(request.FILES['docfile']),
+				message = newdoc.docfile,
 				post_time = timezone.now(),
 				_type = 3,
 				)
 			message.save()
-			#newdoc = Document(docfile = request.FILES['docfile'])
-			#newdoc.save()
-			return render(request, 'chat.html')
+			
+			return HttpResponse('ok')
+			#return render(request, 'chat.html')
 	else:
 		form = DocumentForm() # A empty, unbound form
 		return render(request, 'add_file.html', {'form': form } )
