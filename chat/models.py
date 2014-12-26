@@ -40,8 +40,5 @@ def query_to_json(data):
  	return json.dumps(mess)
 
 
-from django import forms
-
-class UploadFileForm(forms.Form):
-    title = forms.CharField(max_length=50)
-    file = forms.FileField()
+class Document(models.Model):
+	docfile = models.FileField(upload_to='')

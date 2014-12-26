@@ -20,7 +20,6 @@ urlpatterns = patterns('',
 	url(r'^chat/(?P<chat_id>\d+)/messages_from_id/$', 'chat.views.messages_from_id', name='messages_from_id'),
 	url(r'^create_chat/$', 'chat.views.create_chat', name='create_chat'),
 	url(r'^delete_chat/$', 'chat.views.delete_chat', name='delete_chat'),
-#	url(r'^upload/$', 'chat.views.upload', name='upload'),
 	url(r'^delete_user_from_chat/', 'chat.views.delete_user_from_chat', name='delete_user_from_chat'),
-	url(r'^upload_file/', 'chat.views.upload_file', name='upload_file'),
+	url(r'^add_file/$', 'chat.views.add_file', name='add_file'),
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

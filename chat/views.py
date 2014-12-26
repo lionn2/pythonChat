@@ -225,22 +225,35 @@ def delete_user_from_chat(request):
 	except Exception, e:
 		return HttpResponse("Error", status = 400)
 
-def upload_file(request):
-	chat_id = request.POST['chat_id']
-	form = UploadFileForm(request.POST, request.FILES)
-	if form.is_valid():
-		handle_uploaded_file(request.FILES['file'])
-		message = Message(
-				chat_id = Chat.objects.get(id = chat_id),
-				user_id = request.user,
-				message = req.FILES['filename'],
-				_type = 3,
-				post_time = timezone.now(),
-			)
-		return HttpResponse('ok')
-	return HttpResponse(status = 404)
 
-def handle_uploaded_file(f):
-	with open('buffer.txt', 'wb+') as destination:
-		for chunk in f.chunks():
-			destination.write(chunk)
+from django.template import RequestContext
+from django.core.urlresolvers import reverse
+
+from myproject.myapp.models import Document
+from myproject.myapp.forms import DocumentForm
+
+
+def add_files(request):
+	chat = request.POST['chat_id']
+	form = DocumentForm(request.POST, request.FILES)
+	if form.is_valid():
+		message = Message(
+			chat_id = chat_id,
+			user_id = request.user,
+			message = str(request.FILES['docfile']),
+			post_time = timezone.now(),
+			_type = 3,
+			)
+		message.save()
+		#newdoc = Document(docfile = request.FILES['docfile'])
+		#newdoc.save()
+		return HttpResponseRedirect(reverse('chat'))
+	#else:
+    #    form = DocumentForm() # A empty, unbound form
+
+    # Load documents for the list page
+    #documents = Document.objects.all()
+
+    # Render list page with the documents and the form
+    #return render_to_response('list_files.html',{'documents': documents, 'form': form}, context_instance=RequestContext(request)
+    )

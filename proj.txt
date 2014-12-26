@@ -152,3 +152,12 @@ user_chat:
 	response:
 		index.html + chats - good
 		redirect to '/' - bad
+
+add file:
+	method:
+		post
+	url:
+		/add_file/
+	fields:
+		POST['chat_id']
+		FILES['docfile']
