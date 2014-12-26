@@ -8,6 +8,26 @@ function main (user, id) {
 	sortUsers();
 	me = user;
 	chat_id = id;
+	$('#id_docfile').change(function () {
+		if($('#id_docfile').get(0).value != '') {
+			$.ajax({
+
+				type: "POST",
+				url: 'add_file/',
+				data: new FormData($('#upload-form').get(0)),
+			    //contentType: "application/json; charset={CHARSET}",
+            	//dataType: "json",
+            	//contentType: 'multipart/form-data',
+            	contentType: false,
+			    processData: false,
+				success: function(responce)
+				{
+					console.log('addFile =', responce)
+				}
+			});
+		}
+		//$('#upload-form').submit();
+	});
 }
 
 function startInterval () {
@@ -111,7 +131,7 @@ function addMessagesToTable (messages) {
 
 		if(m.type == 3) {
 			var mess = m.message.split(' ', 1);
-			cell2.innerHTML = '<a href="' + m.message + '"></a>';
+			cell2.innerHTML = '<a href="/media/' + m.message + '">' + m.message + '</a>';
 		} else {
 			cell2.innerHTML = m.message.split('\r\n').join('<br />');
 		}
@@ -173,22 +193,6 @@ function leaveChat () {
 }
 
 function addFile () {
-	$('#id_docfile').change(function () {
-		if($('#id_docfile').get(0).value != '') {
-			$.ajax({
-				type: "POST",
-				url: '/add_file/',
-				data: $("#upload-form").serialize() + '&chat_id=' + chat_id,
-			    cache: false,
-			    contentType: false,
-			    //processData: false,
-				success: function(responce)
-				{
-					console.log('addFile =', responce)
-				}
-			});
-		}
-		$('#upload-form').submit();
-	});
+	
 	$('#id_docfile').click();
 }
