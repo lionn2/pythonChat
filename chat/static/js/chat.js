@@ -110,7 +110,8 @@ function addMessagesToTable (messages) {
 		}
 
 		if(m.type == 3) {
-			cell2.innerHTML = '<a>' + m.message + '</a>';
+			var mess = m.message.split(' ', 1);
+			cell2.innerHTML = '<a href="' + m.message + '"></a>';
 		} else {
 			cell2.innerHTML = m.message.split('\r\n').join('<br />');
 		}
@@ -173,20 +174,21 @@ function leaveChat () {
 
 function addFile () {
 	$('#id_docfile').change(function () {
-		//if(inputFile.value != '') {
-			/*$.ajax({
+		if($('#id_docfile').get(0).value != '') {
+			$.ajax({
 				type: "POST",
 				url: '/add_file/',
 				data: $("#upload-form").serialize() + '&chat_id=' + chat_id,
-				success: function(messages)
+			    cache: false,
+			    contentType: false,
+			    //processData: false,
+				success: function(responce)
 				{
-					messages = jQuery.parseJSON(messages);
-					//addMessagesToTable(messages);
-					textArea.value = "";
+					console.log('addFile =', responce)
 				}
-			});*/
-		//}
+			});
+		}
 		$('#upload-form').submit();
 	});
-	$('#id_ocfile').click();
+	$('#id_docfile').click();
 }

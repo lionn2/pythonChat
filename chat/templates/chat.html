@@ -52,7 +52,7 @@
 					<button class="btn btn-default">Exit</button>
 				</a>
 				<button class="btn btn-default" onclick="addFile()">Upload File</button>
-				<form style="/*display: none*/" id="upload-form" action="add_file/" method="post" enctype="multipart/form-data">
+				<form style="display: none" id="upload-form" action="add_file/" method="post" enctype="multipart/form-data">
 					{% csrf_token %}
 					<p>{{ form.non_field_errors }}</p>
 					<p>{{ form.docfile.label_tag }} {{ form.docfile.help_text }}</p>
