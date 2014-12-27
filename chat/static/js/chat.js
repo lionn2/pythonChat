@@ -23,9 +23,6 @@ function main (user, id) {
 				success: function (responce) {
 					console.log('addFile responce is', responce)
 				}
-				unsuccess: function (responce) {
-					console.log('addFile responce is', responce)
-				}
 			});
 		}
 		//$('#upload-form').submit();
