@@ -6,6 +6,7 @@ class Chat(models.Model):
 	chat_name = models.CharField(max_length = 100)
 	start_time = models.DateTimeField()
 	users = models.ManyToManyField(User)
+	owner = models.CharField(max_length = 100)
 	guest = models.IntegerField(default=0)
 
 	def to_json(self):

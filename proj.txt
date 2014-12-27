@@ -137,7 +137,7 @@ upload file:
 	method:
 		post
 	url:
-		/upload_file/
+		/upload_fie/
 	fields:
 		chat_id
 	response:
@@ -162,3 +162,19 @@ add file:
 		POST['chat_id']
 		FILES['docfile']
 		media/documents/2013/01/30/example01.png - example of file path
+
+seach:
+	method:
+		post
+	url:
+		/search/
+	fields:
+		text
+		_type:
+			0 - message
+			1 - chats name
+			2 - username
+	response:
+		list(Message_id) - 0
+		list(Chat_id)	 - 0, 1
+		list(User_id)	 - 2

@@ -195,13 +195,18 @@ def messages_from_id(request, chat_id):
 	return HttpResponse("[]")
 
 def create_chat(request):
-	chat_name = request.POST['chat_name']
-	chat = Chat(
-		chat_name = chat_name,
-		start_time = timezone.now()
-		)
-	chat.save()
-	return redirect('chat', id=chat.id)
+	if request.user.is_authenticated():
+		chat_name = request.POST['chat_name']
+		chat = Chat(
+			chat_name = chat_name,
+			start_time = timezone.now(),
+			owner = str(request.user),
+			)
+		chat.save()
+		return redirect('chat', id=chat.id)
+	else:
+		return redirect('/', status = 403)
+	
 	
 
 def delete_chat(request):
@@ -209,10 +214,13 @@ def delete_chat(request):
 		chat_id = request.POST['id']
 		try:
 			chat = Chat.objects.get(id = chat_id)
-			messages = Message.objects.filter(chat_id = chat)
-			messages.delete()
-			chat.delete()
-			return HttpResponse('ok')
+			if str(request.user) == chat.owner:
+				messages = Message.objects.filter(chat_id = chat)
+				messages.delete()
+				chat.delete()
+				return HttpResponse('ok')
+			else:
+				return HttpResponse("Error", status = 403)
 		except:
 			return render('/')
 	else:
