@@ -180,3 +180,16 @@ seach:
 		list(Chat_id)	 - 1
 		list(User_id)	 - 2
 		redirect to '/'  - error
+
+online:
+	method:
+		post
+	url:
+		/chat/<chat_id>/online/
+	fields:
+		chat_id
+	response:
+		json with array of OnlineUsers
+	Ти маєш відправляти мені кожні 55 секунд запит на перевірку онлайн юзерів і зробити в себе кнопку для оновлення списку
+	!!!Точно ще не знаю чи працює, бо не тестив!!!
+	!!!І зроби syncdb!!!

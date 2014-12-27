@@ -43,3 +43,8 @@ def query_to_json(data):
 
 class Document(models.Model):
 	docfile = models.FileField(upload_to='documents/%Y/%m/%d')
+
+class OnlineUser(models.Model):
+	user = models.ForeignKey(User)
+	chat = models.ForeignKey(Chat)
+	last_visit = models.DateTimeField()

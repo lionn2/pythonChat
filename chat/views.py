@@ -49,7 +49,7 @@ def user_chats(request):
 						user_chat.append(ch)
 					else:
 						user_chat.append(ch)
-					break
+					break 
 		return render(request, 'index.html', {'chats': user_chat } )
 	else:
 		return redirect('/')
@@ -278,3 +278,26 @@ def search(request):
 		return render(request, 'search.html', {'result': users })
 	else:
 		return redirect('/')
+
+def i_am_online(user):
+	onl = OnlineUser()
+	try:	
+		onl = OnlineUser.objects.get(username = user.username)
+	except:
+		onl = OnlineUser()
+	onl.last_visit = timezone.now()
+	onl.user = user
+	onl.save()
+
+def online(request):
+	if request.user.is_authenticated():
+		i_am_online(request.user)
+		chat_id = request.POST['chat_id']
+		chat = Chat.objects.get(id = chat_id)
+		users = chat.users
+		for ou in users:
+			if timezone.now() - ou.last_visit > 60:
+				online_user = OnlineUser.objects.get(user = ou)
+				online_user.delete()
+		return HttpResponse(query_to_json(users))
+	return HttpResponse("error")
