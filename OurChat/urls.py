@@ -22,4 +22,5 @@ urlpatterns = patterns('',
 	url(r'^delete_chat/$', 'chat.views.delete_chat', name='delete_chat'),
 	url(r'^delete_user_from_chat/', 'chat.views.delete_user_from_chat', name='delete_user_from_chat'),
 	url(r'^chat/(?P<chat_id>\d+)/add_file/', 'chat.views.add_file', name='add_file'),
+	url(r'^search/', 'chat.views.search', name='search'),
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

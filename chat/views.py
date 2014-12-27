@@ -266,10 +266,16 @@ def add_file(request, chat_id):
 			except:
 				return HttpResponse('bad')
 	else:
-		form = DocumentForm() # A empty, unbound form
+		form = DocumentForm()
 		return render(request, 'add_file.html', {'form': form } )
-    # Load documents for the list page
-    #documents = Document.objects.all()
 
-    # Render list page with the documents and the form
-    #return render_to_response('list_files.html',{'documents': documents, 'form': form}, context_instance=RequestContext(request)
+
+def search(request):
+	text = request.POST['text']
+	_type = request.POST['_type']
+	if _type == 0:
+		messages = Message.objects.filter(message__like = '%' + text + '%')
+		return HttpResponse(messages)
+	else if _type == 1:
+		chats = Chat.objects.filter(chat_name = '%' + text + '%')
+		return HttpResponse(chats)
