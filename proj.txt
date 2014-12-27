@@ -1,5 +1,5 @@
 рядок для тсорення бази даних:
-CREATE DATABASE django CHARACTER SET utf8;
+CREATE DATABASE chat CHARACTER SET utf8;
 
 Authorization:
 	User:

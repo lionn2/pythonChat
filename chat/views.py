@@ -156,7 +156,7 @@ def chat(request, id):
 						chat_id = chat,
 						user_id = User.objects.get(username = request.user),
 						message = str(request.user) + " entered to chat",
-						post_time = timezone.now(),
+		 				post_time = timezone.now(),
 						_type = 1,
 						)
 					message.save()
@@ -276,6 +276,8 @@ def search(request):
 	if _type == 0:
 		messages = Message.objects.filter(message__like = '%' + text + '%')
 		return HttpResponse(messages)
-	else if _type == 1:
+	elif _type == 1:
 		chats = Chat.objects.filter(chat_name = '%' + text + '%')
 		return HttpResponse(chats)
+	else:
+		return HttpResponse('no')
