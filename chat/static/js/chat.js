@@ -20,9 +20,11 @@ function main (user, id) {
             	//contentType: 'multipart/form-data',
             	contentType: false,
 			    processData: false,
-				success: function(responce)
-				{
-					console.log('addFile =', responce)
+				success: function (responce) {
+					console.log('addFile responce is', responce)
+				}
+				unsuccess: function (responce) {
+					console.log('addFile responce is', responce)
 				}
 			});
 		}
