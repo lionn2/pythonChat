@@ -175,6 +175,8 @@ seach:
 			1 - chats name
 			2 - username
 	response:
+		'search.html' + 
 		list(Message_id) - 0
-		list(Chat_id)	 - 0, 1
+		list(Chat_id)	 - 1
 		list(User_id)	 - 2
+		redirect to '/'  - error

@@ -14,15 +14,9 @@ from django.core.urlresolvers import reverse
 from django.http import JsonResponse
 from itertools import chain
 
-#for 
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
-
 from forms import DocumentForm
-
-
-
-
 
 def index(request):
 	result = {
@@ -274,10 +268,13 @@ def search(request):
 	text = request.POST['text']
 	_type = request.POST['_type']
 	if _type == 0:
-		messages = Message.objects.filter(message__like = '%' + text + '%')
-		return HttpResponse(messages)
+		messages = Message.objects.filter(message__contains = str(text))
+		return render(request, 'search.html', {'result': messages })
 	elif _type == 1:
-		chats = Chat.objects.filter(chat_name = '%' + text + '%')
-		return HttpResponse(chats)
+		chats = Chat.objects.filter(chat_name__contains = str(text))
+		return render(request, 'search.html', {'result': chats })
+	elif _type == 2:
+		users = User.objects.filter(username__contains = str(text))
+		return render(request, 'search.html', {'result': users })
 	else:
-		return HttpResponse('no')
+		return redirect('/')
