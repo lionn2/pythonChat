@@ -35,7 +35,7 @@ To start this app you have to
   Open the Terminal and cd to 'pythonChat' dir.
   
   execute:
-  python manage.py makemigrations
+  python manage.py makemigrations chat
   python manage.py migrate
   
 5. now you can run the project:
